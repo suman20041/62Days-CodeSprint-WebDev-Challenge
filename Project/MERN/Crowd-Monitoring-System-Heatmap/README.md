@@ -4,6 +4,10 @@
 ### A full-stack web application that uses a Python backend for computer vision and a MERN stack for a real-time monitoring dashboard.
 <img width="800" height=auto alt="image" src="https://github.com/user-attachments/assets/04ecfdc7-9ab7-4a47-b0fd-4e12260c7fbf" />
 
+<br>
+
+### 🔗 Original repository: [https://github.com/riyahal/Crowd-Cluster-Monitoring-Heatmap](https://github.com/riyahal/Crowd-Cluster-Monitoring-Heatmap)
+
 </div>
 
 <br>
@@ -113,8 +117,8 @@ crowd-monitoring-heatmap-system/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/abhisek2004/62Days-CodeSprint-WebDev-Challenge/Project/MERN/Crowd-Cluster-Monitoring-Heatmap.git
-cd Crowd-Cluster-Monitoring-Heatmap
+git clone https://github.com/abhisek2004/62Days-CodeSprint-WebDev-Challenge/Project/MERN/Crowd-Monitoring-System-Heatmap.git
+cd Crowd-Monitoring-System-Heatmap
 ```
 
 ### 2. Create a virtual environment
@@ -168,4 +172,4 @@ python3 crowd_detect.py
 ## License
 
 MIT License. Free to modify and distribute with attribution. Read license here at [LICENSE.md](LICENSE.md).
-c
+
