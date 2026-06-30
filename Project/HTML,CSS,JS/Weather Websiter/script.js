@@ -2,6 +2,8 @@ const searchBtn = document.getElementById("searchBtn");
 const cityInput = document.getElementById("city");
 const resultDiv = document.getElementById("result");
 
+let controller = null;
+
 async function fetchWeather() {
     const city = cityInput.value.trim();
     if (!city) return;
@@ -11,8 +13,13 @@ async function fetchWeather() {
 
     resultDiv.innerHTML = `<div class="status-msg">Fetching weather...</div>`;
 
+
+    if (controller) controller.abort();
+    controller = new AbortController();
+    const signal = controller.signal;
+
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, { signal });
         const data = await response.json();
 
         if (data.cod === 200) {
@@ -47,6 +54,7 @@ async function fetchWeather() {
             resultDiv.innerHTML = `<div class="status-msg error">City not found. Try again.</div>`;
         }
     } catch (error) {
+         if (error.name === "AbortError") return;
         resultDiv.innerHTML = `<div class="status-msg error">Failed to fetch. Check your connection.</div>`;
     }
 }
