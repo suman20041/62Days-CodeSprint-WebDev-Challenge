@@ -81,4 +81,4 @@ To run this project locally, follow these simple steps:
 
 ---
 
-Project added by (**rhalbhavi**)[github.com/rhalbhavi]
+Project added by [**rhalbhavi**](github.com/rhalbhavi)
