@@ -4,7 +4,7 @@
 
 ### An interactive website providing a comprehensive guide to version control with Git and contributing to open-source projects on GitHub.
 
-### Live Preview: [rhalbhavi.github.io/definitive-guide-to-open-source](rhalbhavi.github.io/definitive-guide-to-open-source)
+### Live Preview: [https://rhalbhavi.github.io/definitive-guide-to-open-source/](https://rhalbhavi.github.io/definitive-guide-to-open-source/)
 
 <br>
 <p>
