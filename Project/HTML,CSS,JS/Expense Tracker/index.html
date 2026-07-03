@@ -410,10 +410,13 @@
     render();
   });
 
-  function deleteTx(id) {
-    state.transactions = state.transactions.filter(t => t.id !== id);
-    save(); render();
-  }
+function deleteTx(id) {
+  const tx = state.transactions.find(t => t.id === id);
+  if (!tx) return;
+  if (!confirm(`Delete "${tx.desc}"? This cannot be undone.`)) return;
+  state.transactions = state.transactions.filter(t => t.id !== id);
+  save(); render();
+}
 
   function render() {
     const txs = state.transactions;
