@@ -17,8 +17,6 @@
 
 ---
 
-## 🔗 Live Site — [GitHub Pages](https://riyahal.github.io/ultimate-c-repository.github.io/)
-
 - **Source Repository** — [github.com/riyahal/C-Programming-and-DSA](https://github.com/riyahal/C-Programming-and-DSA)
 
 ---
