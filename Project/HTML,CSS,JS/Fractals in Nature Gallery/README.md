@@ -62,3 +62,5 @@ To get a local copy up and running, follow these simple steps.
     # On Windows
     start index.html
     ```
+
+- You may even add more images of your own to the sub-folders, and also add more sub-folders to this project!
