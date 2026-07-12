@@ -1,0 +1,451 @@
+*{
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+}
+
+body{
+    font: 15px/1.5 'Poppins', sans-serif;
+    background-color: rgb(241, 226, 210);
+}
+
+
+/* Global */
+.container{
+    width: 80%;
+    margin: auto;
+}
+
+.clr{
+	clear:both;
+}
+
+.button1{
+    color: rgb(36, 35, 35);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 12px;
+    height: 38px;
+    background: rgb(221, 189, 156);
+    border: 0;
+    border-radius: 15px;
+    padding: 10px 10px;
+    box-sizing: border-box;
+}
+
+.button1:hover{
+    font-weight: bold;
+    background-color: rgb(192, 148, 95);
+    font-size: 13.5px;
+}
+
+.darkbox{
+    padding: 15px;
+    background-color: rgb(192, 148, 95);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.pg-title h1{
+    text-align: center;
+    font: 76px 'The Nautigal', cursive;
+    color: rgb(73, 46, 12);
+}
+
+
+/* Header */
+header{
+    color: rgb(36, 35, 35);
+    padding-top: 30px;
+    min-height: 80px;
+}
+
+header a{
+    color: rgb(36, 35, 35);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+header .current a{
+    color: black;
+    font-weight: bold;
+}
+
+header a:hover{
+    font-weight: bold;
+    font-size: 15.5px;
+}
+
+header li{
+    float: left;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+header #branding{
+    float: left;
+    font-family: 'Smooch', cursive;
+}
+
+header nav{
+    float: right;
+    margin-top: 10px;
+}
+
+
+/* Showcase */
+#showcase{
+    margin-top: 10px;
+    min-height: 500px;
+    background: url('../images/showcase.png') no-repeat 0 5px;
+    color: rgb(243, 237, 225);
+    position: relative;
+    text-align: center;
+    background-size: cover;
+}
+
+#showcase h1{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font: 50px 'The Nautigal', cursive;
+}
+
+#showcase p{
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font: 70px 'The Nautigal', cursive;
+}
+
+
+/* Finding nearest cafe */
+#find_nearest{
+    margin: 0;
+    min-height: 600px;
+    background: url('../images/nearest_cupofjoy.png') no-repeat center center;
+    text-align: center;
+    text-transform: uppercase;
+    color: rgb(79, 61, 27);
+    position: relative;
+}
+
+.hline{
+    position: absolute;
+    top: 11%;
+    left: 13%;
+    transform: translate(0, -11%);
+    width: 50%;
+    height: 32px;
+    border-bottom: 1.5px solid rgb(79, 61, 27);
+}
+
+.hline span{
+    font-size: 40px;
+    background-color: rgb(241, 226, 210);
+    padding: 0 5px;
+    font-weight: bold;
+}
+
+#find_nearest p{
+    position: absolute;
+    top: 24%;
+    left: 22.5%;
+    transform: translate(0, -24%);
+    font-size: 35px;
+}
+
+.cafe-finder{
+    position: absolute;
+    padding: 10px;
+    top: 40%;
+    right: 10%;
+    transform: translate(10%, -10%);
+}
+
+#find_nearest input[type="area"]{
+    padding: 15px;
+    height: 25px;
+    width: 210px;
+    color: rgb(79, 61, 27);
+    font-weight: bold;
+    border-radius: 14px;
+    border-color: rgb(79, 61, 27);
+    background-color: rgb(241, 226, 210);
+}
+
+#find_nearest button{
+    padding: 7px;
+    height: 30px;
+    color: rgb(79, 61, 27);
+    border-radius: 9px;
+    border-color: rgb(79, 61, 27);
+    background-color: rgb(241, 226, 210);
+}
+
+#find_nearest button:hover{
+    background-color: rgb(191, 155, 117);
+}
+
+
+/* error page */
+#errorpg{
+    margin-top: 4px;
+    min-height: 493px;
+    background: url('../images/tmp.png') no-repeat 0 -100px;
+    background-position: center center;
+    text-align: center;
+    color: rgb(249, 247, 245);
+    position: relative;
+}
+
+#errorpg p{
+    position: absolute;
+    bottom: 16%;
+    left: 50%;
+    transform: translate(-50%, -16%);
+    font: 20px 'Poppins', sans-serif;
+}
+
+#errorpg a{
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    transform: translate(-50%, -6%);
+    font: 20px  'Poppins', sans-serif;
+}
+
+#errorpg .button2{
+    color: rgba(170, 130, 21, 0.778);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    height: 42px;
+    width: 200px;
+    background: rgb(241, 226, 210);
+    border: 0;
+    border-radius: 15px;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+#errorpg .button2:hover{
+    background-color: rgb(246, 214, 159);
+    color: rgba(112, 28, 28, 0.904);
+    font-weight: bold;
+}
+
+
+/* About Us page */
+#about-img{
+    min-height: 480px;
+    background-size: cover;
+    background: url('../images/about.jpg') no-repeat 0 10px;
+    background-position: center center;
+    color: rgb(217, 208, 190);
+    position: relative;
+    text-align: center;
+}
+
+#about-img h1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font: 65px 'The Nautigal', cursive;
+}
+
+/* Sidebar */
+aside#sidebar{
+    text-align: justify;
+    float: left;
+    width: 28%;
+    margin-top: 30px;
+}
+
+article#main-col{
+    text-align: justify;
+    margin-top: 25px;
+    float: right;
+    width: 65%;
+    margin-bottom: 45px;
+}
+
+
+/* boxes */
+#boxes{
+    margin-top: 15px;
+}
+
+#boxes .box{
+    float: left;
+    text-align: center;
+    width: 30%;
+    padding: 10px;
+    margin-left: 25px;
+}
+
+#boxes .box img{
+    margin-bottom: 8px;
+}
+
+#boxes .box p{
+    margin: 8.5px 0 10px 0;
+}
+
+
+/* Menu */
+#menu-top h1{
+    margin: 95px 0;
+    float: left;
+    font-size: 90px;
+}
+
+#menu-top img{
+    float: right;
+    width: 45%;
+    margin: 40px 0;
+}
+
+#menu h2{
+    margin: 40px 0 20px 0;
+    font: 50px 'The Nautigal', cursive;
+}
+
+#menu .menu-container{
+    max-width: 40em;
+    margin: auto;
+    padding: 0 15px;
+}
+
+#menu .menu-list{
+    max-width: 40em;
+    padding: 0;
+    overflow-x: hidden;
+    list-style: none;
+    margin-bottom: 30px;
+}
+  
+#menu .menu-list li:before{
+    float: left;
+    width: 0;
+    white-space: nowrap;
+    content: ". . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . "
+}
+  
+#menu .menu-list span:first-child{
+    padding-right: 0.33em;
+    background: rgb(241, 226, 210);
+}
+  
+#menu .menu-list span+span{
+    float: right;
+    padding-left: 0.33em;
+    background: rgb(241, 226, 210);
+}
+  
+#menu .menu-list li{
+    margin-bottom: 1em;
+}
+  
+#menu .menu-list .name{
+    font-weight: 600;
+}
+  
+#menu .menu-list .desc{
+    width: 100%;
+    display: block;
+}
+
+
+/* footer */
+footer{
+    padding: 31px;
+    color: rgb(103, 73, 35);
+    background-color: rgb(199, 176, 124);
+}
+
+footer p{
+    float: left;
+}
+
+footer img{
+    float: right;
+    width: 25px;
+    margin-right: 15px;
+}
+
+
+
+/* Media Queries */
+@media(max-width: 1150px){
+    #boxes .box{
+        float: none;
+        text-align: center;
+        width: 100%;
+        margin: 0;
+    }
+}
+
+
+@media(max-width: 1023px){
+    header #branding,
+    header nav,
+    header nav li,
+    article#main-col,
+    aside#sidebar,
+    #menu-top h1,
+    #menu-top img,
+    footer p{
+        float: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    header li{
+        display: inline;
+    }
+
+    #showcase h1{
+        font-size: 40px;
+        top: 38%;
+    }
+
+    #showcase p{
+        font-size: 55px;
+        top: 55%;
+    }
+
+    #errorpg{
+        margin-bottom: 118px;
+    }
+
+    #find_nearest{
+        background: url('../images/nearest_cupofjoy1.png') no-repeat center center;
+    }
+
+    #find_nearest p{
+        top: 24%;
+        left: 50%;
+        transform: translate(-50%, -24%);
+        font-size: 29px;
+    }
+
+    .hline{
+        left: 5%;
+        width: 90%;
+    }
+    
+    .cafe-finder{
+        top: 75%;
+        left: 10%;
+        transform: translate(0, -50%);
+    }
+}
