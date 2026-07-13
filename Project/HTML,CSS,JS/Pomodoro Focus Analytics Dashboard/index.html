@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pomodoro Focus Analytics Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">🍅</span>
+      <div>
+        <h1>Pomodoro Focus Dashboard</h1>
+        <p class="tagline">Focus timer + session analytics to track your productivity</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="timer-section" aria-labelledby="timer-heading">
+      <h2 id="timer-heading" class="sr-only">Pomodoro Timer</h2>
+      <p id="modeLabel" class="mode-label">Focus Session</p>
+      <div id="timerDisplay" class="timer-display" aria-live="polite">25:00</div>
+      <p class="session-info">Session <span id="sessionNum">1</span> of 4</p>
+
+      <div class="timer-controls">
+        <button type="button" id="startBtn" class="btn btn-primary">Start</button>
+        <button type="button" id="pauseBtn" class="btn btn-ghost" disabled>Pause</button>
+        <button type="button" id="resetBtn" class="btn btn-ghost">Reset</button>
+        <button type="button" id="skipBtn" class="btn btn-ghost">Skip</button>
+      </div>
+    </section>
+
+    <section class="stats-section" aria-labelledby="stats-heading">
+      <h2 id="stats-heading">Summary</h2>
+      <div class="stats-grid">
+        <div class="stat-card"><span class="stat-label">Total Sessions</span><span id="totalSessions" class="stat-value">0</span></div>
+        <div class="stat-card"><span class="stat-label">Total Focus</span><span id="totalFocus" class="stat-value">0m</span></div>
+        <div class="stat-card"><span class="stat-label">Today</span><span id="todayFocus" class="stat-value">0m</span></div>
+        <div class="stat-card"><span class="stat-label">Best Day</span><span id="bestDay" class="stat-value">—</span></div>
+      </div>
+    </section>
+
+    <section class="charts-section" aria-labelledby="charts-heading">
+      <h2 id="charts-heading">Analytics</h2>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3>Daily Sessions (7 days)</h3>
+          <canvas id="sessionsChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Daily Focus Time (7 days)</h3>
+          <canvas id="focusChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="history-section" aria-labelledby="history-heading">
+      <h2 id="history-heading">Recent Sessions</h2>
+      <ul id="historyList" class="history-list"></ul>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
