@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Source PR Checklist Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">✅</span>
+      <div>
+        <h1>Open Source PR Checklist Generator</h1>
+        <p class="tagline">Generate contribution checklists &amp; commit message templates for your PR</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="controls">
+      <label class="control-label" for="projectType">Project Type</label>
+      <select id="projectType" class="select">
+        <option value="html">HTML / CSS / JS</option>
+        <option value="react">React</option>
+        <option value="mern">MERN Stack</option>
+        <option value="node">Node.js / Express</option>
+        <option value="docs">Documentation</option>
+      </select>
+      <button type="button" id="generateBtn" class="btn btn-primary">Generate</button>
+    </section>
+
+    <section class="output-section" aria-labelledby="checklist-heading">
+      <div class="output-header">
+        <h2 id="checklist-heading">Contribution Checklist</h2>
+        <button type="button" id="copyChecklistBtn" class="btn btn-ghost">Copy Checklist</button>
+      </div>
+      <ul id="checklist" class="checklist"></ul>
+    </section>
+
+    <section class="output-section" aria-labelledby="commits-heading">
+      <div class="output-header">
+        <h2 id="commits-heading">Commit Message Templates</h2>
+        <button type="button" id="copyCommitsBtn" class="btn btn-ghost">Copy Templates</button>
+      </div>
+      <div id="commitTemplates" class="commit-templates"></div>
+    </section>
+
+    <section class="tips-section" aria-labelledby="tips-heading">
+      <h2 id="tips-heading">PR Best Practices</h2>
+      <ul id="tipsList" class="tips-list"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
