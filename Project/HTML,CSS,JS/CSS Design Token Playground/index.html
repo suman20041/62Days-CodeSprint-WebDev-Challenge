@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS Design Token Playground</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">🎨</span>
+      <div>
+        <h1>CSS Design Token Playground</h1>
+        <p class="tagline">Edit tokens — watch UI components update in real time</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="copyBtn" class="btn btn-ghost">Copy Tokens</button>
+      <button type="button" id="resetBtn" class="btn btn-ghost">Reset</button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="panel token-panel" aria-labelledby="token-heading">
+      <div class="panel-header">
+        <h2 id="token-heading">Token Editor</h2>
+      </div>
+
+      <div class="token-groups">
+        <fieldset class="token-group">
+          <legend>Colors</legend>
+          <label>Primary <input type="color" data-token="--color-primary" value="#2563eb" /></label>
+          <label>Secondary <input type="color" data-token="--color-secondary" value="#7c3aed" /></label>
+          <label>Background <input type="color" data-token="--color-bg" value="#f8fafc" /></label>
+          <label>Surface <input type="color" data-token="--color-surface" value="#ffffff" /></label>
+          <label>Text <input type="color" data-token="--color-text" value="#1e293b" /></label>
+          <label>Muted <input type="color" data-token="--color-muted" value="#64748b" /></label>
+        </fieldset>
+
+        <fieldset class="token-group">
+          <legend>Spacing</legend>
+          <label>XS <input type="range" data-token="--space-xs" min="2" max="12" value="4" /><span class="val" data-for="--space-xs">4px</span></label>
+          <label>SM <input type="range" data-token="--space-sm" min="4" max="20" value="8" /><span class="val" data-for="--space-sm">8px</span></label>
+          <label>MD <input type="range" data-token="--space-md" min="8" max="32" value="16" /><span class="val" data-for="--space-md">16px</span></label>
+          <label>LG <input type="range" data-token="--space-lg" min="16" max="48" value="24" /><span class="val" data-for="--space-lg">24px</span></label>
+          <label>XL <input type="range" data-token="--space-xl" min="24" max="64" value="32" /><span class="val" data-for="--space-xl">32px</span></label>
+        </fieldset>
+
+        <fieldset class="token-group">
+          <legend>Typography</legend>
+          <label>Font Family
+            <select data-token="--font-family">
+              <option value="'Segoe UI', system-ui, sans-serif">Segoe UI</option>
+              <option value="Georgia, 'Times New Roman', serif">Georgia</option>
+              <option value="'Courier New', Courier, monospace">Courier New</option>
+              <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+            </select>
+          </label>
+          <label>Base Size <input type="range" data-token="--font-size-base" min="12" max="20" value="16" /><span class="val" data-for="--font-size-base">16px</span></label>
+          <label>Heading Size <input type="range" data-token="--font-size-heading" min="20" max="40" value="28" /><span class="val" data-for="--font-size-heading">28px</span></label>
+          <label>Radius <input type="range" data-token="--radius" min="0" max="24" value="8" /><span class="val" data-for="--radius">8px</span></label>
+        </fieldset>
+      </div>
+
+      <pre id="tokenOutput" class="token-output" aria-label="Generated CSS tokens"></pre>
+    </section>
+
+    <section class="panel preview-panel" aria-labelledby="preview-heading">
+      <div class="panel-header">
+        <h2 id="preview-heading">Live Component Preview</h2>
+      </div>
+
+      <div class="preview-canvas">
+        <h3 class="preview-heading">Design System Preview</h3>
+        <p class="preview-text">Edit tokens on the left to see how colors, spacing, and typography shape real UI components.</p>
+
+        <div class="preview-buttons">
+          <button type="button" class="preview-btn primary">Primary Button</button>
+          <button type="button" class="preview-btn secondary">Secondary Button</button>
+          <button type="button" class="preview-btn outline">Outline Button</button>
+        </div>
+
+        <div class="preview-cards">
+          <article class="preview-card">
+            <h4>Card Title</h4>
+            <p>A sample card component using your current design tokens.</p>
+            <span class="preview-badge">Badge</span>
+          </article>
+          <article class="preview-card">
+            <h4>Another Card</h4>
+            <p>Spacing, radius, and colors all update instantly via CSS variables.</p>
+            <span class="preview-badge">New</span>
+          </article>
+        </div>
+
+        <div class="preview-alert">
+          <strong>Info</strong>
+          <p>Design tokens are reusable values stored as CSS custom properties.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
