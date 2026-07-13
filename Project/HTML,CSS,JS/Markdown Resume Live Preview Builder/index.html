@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Markdown Resume Live Preview Builder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">📄</span>
+      <div>
+        <h1>Markdown Resume Builder</h1>
+        <p class="tagline">Write in Markdown — preview &amp; print a professional resume instantly</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="sampleBtn" class="btn btn-ghost">Load Sample</button>
+      <button type="button" id="clearBtn" class="btn btn-ghost">Clear</button>
+      <button type="button" id="printBtn" class="btn btn-primary">Print / Save PDF</button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="panel editor-panel" aria-labelledby="editor-heading">
+      <div class="panel-header">
+        <h2 id="editor-heading">Markdown Editor</h2>
+      </div>
+      <textarea
+        id="markdownInput"
+        class="markdown-input"
+        spellcheck="false"
+        placeholder="Write your resume in Markdown here…"
+        aria-label="Resume markdown editor"
+      ></textarea>
+    </section>
+
+    <section class="panel preview-panel" aria-labelledby="preview-heading">
+      <div class="panel-header">
+        <h2 id="preview-heading">Live Preview</h2>
+      </div>
+      <div id="resumePreview" class="resume-preview" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
