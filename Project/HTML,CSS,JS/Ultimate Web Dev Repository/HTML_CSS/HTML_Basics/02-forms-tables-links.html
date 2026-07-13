@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Basics - Forms, Tables, Links</title>
+</head>
+<body>
+  <h1>Forms, Tables, Links</h1>
+
+  <h2>Links</h2>
+  <ul>
+    <li><a href="https://developer.mozilla.org/" target="_blank" rel="noreferrer">MDN (new tab)</a></li>
+    <li><a href="#profile">Jump to profile section</a></li>
+  </ul>
+
+  <h2 id="profile">Basic Form</h2>
+  <form action="#" method="post">
+    <label>
+      Name:
+      <input type="text" name="name" placeholder="Your name" required />
+    </label>
+    <br />
+    <br />
+
+    <label>
+      Email:
+      <input type="email" name="email" placeholder="you@example.com" required />
+    </label>
+    <br />
+    <br />
+
+    <label>
+      Favorite color:
+      <input type="color" name="color" value="#00ff88" />
+    </label>
+    <br />
+    <br />
+
+    <fieldset>
+      <legend>How did you hear about us?</legend>
+      <label><input type="radio" name="source" value="search" checked /> Search</label>
+      <label><input type="radio" name="source" value="friend" /> Friend</label>
+      <label><input type="radio" name="source" value="other" /> Other</label>
+    </fieldset>
+
+    <br />
+
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+  </form>
+
+  <h2>Table</h2>
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>Level</th>
+        <th>Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>HTML Basics</td>
+        <td>Beginner</td>
+        <td>1 week</td>
+      </tr>
+      <tr>
+        <td>CSS Fundamentals</td>
+        <td>Beginner</td>
+        <td>1 week</td>
+      </tr>
+      <tr>
+        <td>Flexbox & Grid</td>
+        <td>Intermediate</td>
+        <td>2 weeks</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
+

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ES6+ - Arrow Functions & Template Strings</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    pre { background:#0b1320; color:#d9fdd0; padding:12px; border-radius:12px; }
+  </style>
+</head>
+<body>
+  <h1>ES6+ Features: Arrow Functions & Template Strings</h1>
+  <p>Runs immediately and prints results.</p>
+  <pre id="out"></pre>
+
+  <script>
+    const name = 'Neon';
+    const count = 3;
+
+    const shout = (s) => `✨ ${s.toUpperCase()} ✨`;
+
+    const message = `Hello, ${name}. You have ${count} new notifications.`;
+
+    const out = document.getElementById('out');
+    out.textContent = [
+      `shout('hello') => ${shout('hello')}`,
+      message
+    ].join('\n');
+  </script>
+</body>
+</html>
+

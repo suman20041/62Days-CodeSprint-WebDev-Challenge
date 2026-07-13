@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JS Core - Arrays & Objects</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    pre { background: #0b1320; color: #d9fdd0; padding: 12px; border-radius: 12px; }
+    button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Arrays & Objects</h1>
+  <p>Filter + map examples for beginner-friendly array operations.</p>
+
+  <button id="run">Run</button>
+  <pre id="out"></pre>
+
+  <script>
+    const out = document.getElementById('out');
+    document.getElementById('run').addEventListener('click', () => {
+      const products = [
+        { id: 1, name: 'Keyboard', price: 49.99 },
+        { id: 2, name: 'Mouse', price: 19.99 },
+        { id: 3, name: 'Monitor', price: 199.00 },
+        { id: 4, name: 'USB-C Cable', price: 9.99 }
+      ];
+
+      const affordable = products.filter(p => p.price < 50);
+      const names = affordable.map(p => p.name);
+
+      const total = affordable.reduce((sum, p) => sum + p.price, 0);
+
+      out.textContent = [
+        'Affordable products (price < 50):',
+        affordable.map(p => `- ${p.name} ($${p.price})`).join('\n'),
+        `\nNames: ${names.join(', ')}`,
+        `Total: $${total.toFixed(2)}`
+      ].join('\n');
+    });
+  </script>
+</body>
+</html>
+

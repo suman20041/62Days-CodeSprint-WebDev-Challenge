@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Async JS - Promises + fetch</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    pre { background:#0b1320; color:#d9fdd0; padding:12px; border-radius:12px; min-height:160px; }
+    button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Asynchronous JS: Promises + fetch</h1>
+  <p>Fetches a small JSON payload from a public endpoint.</p>
+
+  <button id="run">Fetch</button>
+  <pre id="out"></pre>
+
+  <script>
+    const out = document.getElementById('out');
+
+    document.getElementById('run').addEventListener('click', () => {
+      out.textContent = 'Loading...';
+
+      fetch('https://jsonplaceholder.typicode.com/todos/1')
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then(data => {
+          out.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(err => {
+          out.textContent = `Fetch failed: ${err.message}\n\nTip: If you see CORS/network errors, run this via an HTTP server.`;
+        });
+    });
+  </script>
+</body>
+</html>
+

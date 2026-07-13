@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JS Core - Functions</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    pre { background: #0b1320; color: #d9fdd0; padding: 12px; border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Functions</h1>
+
+  <p>Examples of function declaration, parameters, return values, and callbacks.</p>
+
+  <pre id="out"></pre>
+
+  <script>
+    function add(a, b) {
+      return a + b;
+    }
+
+    const shout = (text) => `${text.toUpperCase()}!`;
+
+    function repeat(times, fn) {
+      const results = [];
+      for (let i = 0; i < times; i++) results.push(fn(i));
+      return results;
+    }
+
+    const out = document.getElementById('out');
+    const results = [
+      `add(2, 3) = ${add(2, 3)}`,
+      `shout('hello') = ${shout('hello')}`,
+      `repeat(5, i => i*2) = ${repeat(5, i => i * 2).join(', ')}`
+    ];
+
+    out.textContent = results.join('\n');
+  </script>
+</body>
+</html>
+

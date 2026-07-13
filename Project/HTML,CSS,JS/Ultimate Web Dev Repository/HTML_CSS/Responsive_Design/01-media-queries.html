@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Design - Media Queries</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+
+    .box {
+      background: #0b1320;
+      border: 1px solid #b3ff5a66;
+      color: #d9fdd0;
+      padding: 16px;
+      border-radius: 12px;
+      width: 100%;
+    }
+
+    /* Mobile-first default */
+    .box { font-size: 14px; }
+
+    /* Tablet */
+    @media (min-width: 700px) {
+      .box { font-size: 18px; }
+    }
+
+    /* Desktop */
+    @media (min-width: 1024px) {
+      .box { max-width: 760px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Media Queries</h1>
+  <p>This text and box size respond to viewport width.</p>
+  <div class="box">
+    Resize the browser: <strong>mobile</strong> (default), <strong>tablet</strong> (≥700px), <strong>desktop</strong> (≥1024px).
+  </div>
+</body>
+</html>
+

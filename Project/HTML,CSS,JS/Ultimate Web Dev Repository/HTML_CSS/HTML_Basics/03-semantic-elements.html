@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Basics - Semantic Elements</title>
+</head>
+<body>
+  <header>
+    <h1>Semantic HTML</h1>
+    <p>Use meaningful elements to improve readability and accessibility.</p>
+  </header>
+
+  <nav aria-label="Primary">
+    <a href="#content">Content</a>
+    <a href="#articles">Articles</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <main id="content">
+    <section aria-labelledby="welcome-title">
+      <h2 id="welcome-title">Welcome</h2>
+      <p>
+        A semantic layout uses <code>header</code>, <code>nav</code>, <code>main</code>,
+        <code>section</code>, <code>article</code>, <code>aside</code>, and <code>footer</code>.
+      </p>
+    </section>
+
+    <section id="articles" aria-labelledby="articles-title">
+      <h2 id="articles-title">Latest Articles</h2>
+
+      <article>
+        <h3>Why semantics matter</h3>
+        <p>
+          Semantic tags help screen readers and search engines understand your structure.
+        </p>
+      </article>
+
+      <article>
+        <h3>Better navigation</h3>
+        <p>
+          <code><nav></code> groups links for accessibility.
+        </p>
+      </article>
+    </section>
+
+    <aside>
+      <h3>Tip</h3>
+      <p>Prefer <code><button></code> over clickable <code><div></code>s.</p>
+    </aside>
+  </main>
+
+  <footer id="contact">
+    <small>Contact: <a href="mailto:hello@example.com">hello@example.com</a></small>
+  </footer>
+</body>
+</html>
+

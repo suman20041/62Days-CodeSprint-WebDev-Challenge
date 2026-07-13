@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML/CSS Examples - Landing Page</title>
+  <style>
+    body {
+      font-family: system-ui, Arial;
+      margin: 0;
+      background: radial-gradient(circle at top, #14203a, #0b1320 55%);
+      color: #d9fdd0;
+    }
+
+    header {
+      padding: 28px 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #d9fdd0;
+      text-decoration: none;
+      border: 1px solid #b3ff5a33;
+      padding: 8px 10px;
+      border-radius: 12px;
+      margin-left: 6px;
+      display: inline-block;
+    }
+
+    .hero {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .hero { grid-template-columns: 1.3fr 0.7fr; }
+    }
+
+    .cta {
+      background: #0f1b2d;
+      border: 1px solid #b3ff5a66;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .cta h1 { margin: 0 0 10px; font-size: 34px; }
+    .cta p { margin: 0 0 14px; color: #b9c7ff; }
+
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: #b3ff5a;
+      color: #0b1320;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: #d9fdd0;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      border: 1px solid #b3ff5a66;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .feature-grid {
+      max-width: 1100px;
+      margin: 20px auto 0;
+      padding: 0 16px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .feature {
+      background: #0f1b2d;
+      border: 1px solid #b3ff5a33;
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .feature h3 { margin-top: 0; }
+
+    footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 22px 16px;
+      color: #9fb0d6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <strong>NeonDocs</strong>
+      <nav aria-label="Top navigation">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+
+    <div class="hero">
+      <div class="cta">
+        <h1>Build faster with clean HTML & CSS</h1>
+        <p>Starter layouts, responsive sections, and layout patterns you can copy.</p>
+        <div class="btns">
+          <a class="btn-primary" href="#features">Explore</a>
+          <a class="btn-ghost" href="#pricing">Pricing</a>
+        </div>
+      </div>
+
+      <div class="cta" id="pricing">
+        <h2 style="margin:0 0 8px">Starter</h2>
+        <p style="margin:0 0 12px">$9/month • includes templates</p>
+        <div class="btns">
+          <a class="btn-primary" href="#">Buy</a>
+          <a class="btn-ghost" href="#contact">Talk</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="feature-grid" id="features">
+    <div class="feature"><h3>Responsive</h3><p>Media queries and fluid grids.</p></div>
+    <div class="feature"><h3>Accessible</h3><p>Semantic HTML and clear labels.</p></div>
+    <div class="feature"><h3>Reusable</h3><p>Cards, sections, and layout primitives.</p></div>
+    <div class="feature"><h3>Readable</h3><p>Simple CSS with consistent spacing.</p></div>
+  </section>
+
+  <footer id="contact">
+    <small>Contact: <a style="color:#b3ff5a" href="mailto:hello@example.com">hello@example.com</a></small>
+  </footer>
+</body>
+</html>
+

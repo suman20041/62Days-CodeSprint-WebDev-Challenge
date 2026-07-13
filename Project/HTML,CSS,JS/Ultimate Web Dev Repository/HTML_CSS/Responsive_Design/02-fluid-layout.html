@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Design - Fluid Layout</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+
+    .container {
+      width: min(100%, 900px);
+      margin-inline: auto;
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 800px) {
+      .columns { grid-template-columns: 2fr 1fr; }
+    }
+
+    .panel {
+      background: #0b1320;
+      border: 1px solid #b3ff5a66;
+      color: #d9fdd0;
+      border-radius: 12px;
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fluid Layout</h1>
+  <div class="container">
+    <div class="columns">
+      <div class="panel">
+        <h2>Main</h2>
+        <p>Single column on small screens, switches to 2 columns at 800px.</p>
+      </div>
+      <div class="panel">
+        <h2>Sidebar</h2>
+        <p>Use <code>grid-template-columns</code> for responsive layouts.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML/CSS Examples - Product Card</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; background: #0b1320; color: #d9fdd0; }
+
+    .wrap { max-width: 1000px; margin: 0 auto; }
+
+    .card {
+      background: #0f1b2d;
+      border: 1px solid #b3ff5a66;
+      border-radius: 18px;
+      overflow: hidden;
+      max-width: 380px;
+      margin: 18px auto;
+      box-shadow: 0 0 0 1px #b3ff5a11 inset;
+    }
+
+    .thumb {
+      height: 160px;
+      background: linear-gradient(135deg, #b3ff5a, #00e0ff);
+    }
+
+    .content { padding: 14px; }
+
+    h1 { font-size: 20px; margin: 0 0 6px; }
+
+    .price { font-weight: 900; font-size: 22px; color: #b3ff5a; }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 12px;
+      margin-top: 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #0b1320;
+      background: #b3ff5a;
+      font-weight: 800;
+    }
+
+    @media (min-width: 800px) {
+      .card { margin: 18px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Product Card Example</h1>
+
+    <div class="card">
+      <div class="thumb" aria-hidden="true"></div>
+      <div class="content">
+        <h2>Neon Keyboard</h2>
+        <p>A compact mechanical keyboard with a glow theme.</p>
+        <div class="price">$49.99</div>
+        <a class="btn" href="#">Add to cart</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

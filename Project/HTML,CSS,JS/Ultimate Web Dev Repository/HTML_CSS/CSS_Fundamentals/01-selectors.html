@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSS Fundamentals - Selectors</title>
+  <style>
+    body { font-family: system-ui, Arial; line-height: 1.4; padding: 16px; }
+
+    /* Element selector */
+    p { margin: 8px 0; }
+
+    /* Class selector */
+    .highlight { background: #b3ff5a22; border: 1px solid #b3ff5a66; padding: 10px; border-radius: 10px; }
+
+    /* ID selector */
+    #cta { border-left: 6px solid #b3ff5a; padding-left: 12px; }
+
+    /* Descendant selector */
+    .card span { font-weight: 700; }
+
+    /* Attribute selector */
+    a[target] { color: #b3ff5a; }
+
+    /* Pseudo-class */
+    button:hover { transform: translateY(-1px); }
+    button { transition: transform 120ms ease; }
+  </style>
+</head>
+<body>
+  <h1>CSS Selectors</h1>
+
+  <p>This paragraph uses an <strong>element selector</strong>.</p>
+
+  <div class="highlight" id="cta">
+    <p>Highlighted block uses <code>.highlight</code> class selector.</p>
+    <p>This block is also targeted by <code>#cta</code> ID selector.</p>
+  </div>
+
+  <div class="card">
+    <p>Descendant selector example:</p>
+    <p><span>span inside .card</span> gets bold.</p>
+  </div>
+
+  <p>
+    Attribute selector example: <a href="https://example.com" target="_blank">a[target]</a>
+  </p>
+
+  <button type="button">Hover me</button>
+</body>
+</html>
+

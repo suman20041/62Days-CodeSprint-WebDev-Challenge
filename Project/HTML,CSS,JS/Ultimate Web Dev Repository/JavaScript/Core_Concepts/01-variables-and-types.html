@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JS Core - Variables & Types</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    pre { background: #0b1320; color: #d9fdd0; padding: 12px; border-radius: 12px; }
+    button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Variables & Types</h1>
+  <p>Click to print variable values and their types.</p>
+
+  <button id="run">Run</button>
+  <pre id="out"></pre>
+
+  <script>
+    const out = document.getElementById('out');
+    document.getElementById('run').addEventListener('click', () => {
+      const name = 'Neon';
+      const count = 42;
+      const pi = 3.14;
+      const isCool = true;
+      const nothing = null;
+      let notAssigned;
+
+      const values = { name, count, pi, isCool, nothing, notAssigned };
+
+      out.textContent = Object.entries(values)
+        .map(([k, v]) => `${k} = ${String(v)} | typeof = ${typeof v}`)
+        .join('\n');
+    });
+  </script>
+</body>
+</html>
+

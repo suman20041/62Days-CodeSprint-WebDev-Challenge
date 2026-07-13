@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JS Examples - Weather Widget (Mock)</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; background:#0b1320; color:#d9fdd0; }
+    .widget { max-width: 720px; margin: 0 auto; border:1px solid #b3ff5a66; background:#0f1b2d; border-radius:18px; padding:16px; }
+    .row { display:flex; gap:10px; flex-wrap: wrap; align-items: end; }
+    label { display:grid; gap:6px; }
+    input { padding: 10px; border-radius: 12px; border:1px solid #b3ff5a33; background:#0b1320; color:#d9fdd0; }
+    button { padding: 10px 14px; border-radius: 12px; background:#b3ff5a; border:0; color:#0b1320; font-weight:900; cursor:pointer; }
+    .result { margin-top: 14px; padding: 14px; border-radius:16px; border:1px solid #b3ff5a33; }
+    .temp { font-size: 40px; font-weight: 1000; color:#b3ff5a; }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <h1 style="margin-top:0">Weather Widget (Mock)</h1>
+    <p>This is a JavaScript-only mock to practice DOM updates and simple logic.</p>
+
+    <div class="row">
+      <label>
+        City
+        <input id="city" type="text" placeholder="e.g., London" value="London" />
+      </label>
+      <button id="run">Get Weather</button>
+    </div>
+
+    <div class="result" id="result">
+      <div class="temp" id="temp">—</div>
+      <div id="desc">Enter a city and click “Get Weather”.</div>
+      <div id="meta" style="margin-top:8px; color:#9fb0d6;"></div>
+    </div>
+  </div>
+
+  <script>
+    const city = document.getElementById('city');
+    const run = document.getElementById('run');
+    const temp = document.getElementById('temp');
+    const desc = document.getElementById('desc');
+    const meta = document.getElementById('meta');
+
+    function seededRandom(seed) {
+      // Simple deterministic RNG based on seed string.
+      let h = 2166136261;
+      for (let i = 0; i < seed.length; i++) h = (h ^ seed.charCodeAt(i)) * 16777619;
+      h = Math.abs(h);
+      return (h % 1000) / 1000;
+    }
+
+    function mockWeather(cityName) {
+      const r = seededRandom(cityName);
+      const temperature = Math.round(-5 + r * 40); // -5..35-ish
+
+      const conditions = [
+        'Clear sky',
+        'Partly cloudy',
+        'Light rain',
+        'Windy',
+        'Overcast'
+      ];
+      const condition = conditions[Math.floor(r * conditions.length) % conditions.length];
+
+      return { temperature, condition };
+    }
+
+    run.addEventListener('click', () => {
+      const name = city.value.trim() || 'Unknown';
+      const w = mockWeather(name);
+
+      temp.textContent = `${w.temperature}°C`;
+      desc.textContent = `${w.condition} in ${name}.`;
+      meta.textContent = `Updated at ${new Date().toLocaleTimeString()}`;
+    });
+  </script>
+</body>
+</html>
+

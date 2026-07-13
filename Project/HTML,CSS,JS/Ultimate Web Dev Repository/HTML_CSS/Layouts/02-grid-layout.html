@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Layouts - Grid</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .cell {
+      background: #0b1320;
+      color: #d9fdd0;
+      border: 1px solid #b3ff5a66;
+      border-radius: 12px;
+      padding: 14px;
+      min-height: 72px;
+    }
+    .c1 { grid-column: span 4; }
+    .c2 { grid-column: span 8; }
+    .c3 { grid-column: span 6; }
+    .c4 { grid-column: span 6; }
+  </style>
+</head>
+<body>
+  <h1>CSS Grid</h1>
+  <p>Uses a 12-column grid with spans.</p>
+
+  <div class="grid">
+    <div class="cell c1">Column span 4</div>
+    <div class="cell c2">Column span 8</div>
+    <div class="cell c3">Column span 6</div>
+    <div class="cell c4">Column span 6</div>
+  </div>
+</body>
+</html>
+

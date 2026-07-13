@@ -1,0 +1,262 @@
+[
+  {
+    "path": "PHP",
+    "type": "tree"
+  },
+  {
+    "path": "JavaScript",
+    "type": "tree"
+  },
+  {
+    "path": "HTML_CSS",
+    "type": "tree"
+  },
+  {
+    "path": "PHP Overview.md",
+    "type": "blob"
+  },
+  {
+    "path": "LICENSE",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript Overview.md",
+    "type": "blob"
+  },
+  {
+    "path": "README.md",
+    "type": "blob"
+  },
+  {
+    "path": "HTML and CSS Overview.md",
+    "type": "blob"
+  },
+  {
+    "path": "PHP/Database_MySQL",
+    "type": "tree"
+  },
+  {
+    "path": "PHP/PHP_Syntax",
+    "type": "tree"
+  },
+  {
+    "path": "PHP/Form_Handling",
+    "type": "tree"
+  },
+  {
+    "path": "PHP/Database_MySQL/db_schema.sql",
+    "type": "blob"
+  },
+  {
+    "path": "PHP/Database_MySQL/01-mysqli-connection.php",
+    "type": "blob"
+  },
+  {
+    "path": "PHP/Database_MySQL/02-crud-students.php",
+    "type": "blob"
+  },
+  {
+    "path": "PHP/PHP_Syntax/03-functions.php",
+    "type": "blob"
+  },
+  {
+    "path": "PHP/PHP_Syntax/04-arrays-and-loops.php",
+    "type": "blob"
+  },
+  {
+    "path": "PHP/PHP_Syntax/01-variables-and-types.php",
+    "type": "blob"
+  },
+  {
+    "path": "PHP/PHP_Syntax/02-control-structures.php",
+    "type": "blob"
+  },
+  {
+    "path": "PHP/Form_Handling/02-form-validation.php",
+    "type": "blob"
+  },
+  {
+    "path": "PHP/Form_Handling/01-basic-form.php",
+    "type": "blob"
+  },
+  {
+    "path": "PHP/Form_Handling/03-sanitize-and-escape.php",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/Asynchronous_JavaScript",
+    "type": "tree"
+  },
+  {
+    "path": "JavaScript/DOM_Manipulation",
+    "type": "tree"
+  },
+  {
+    "path": "JavaScript/Core_Concepts",
+    "type": "tree"
+  },
+  {
+    "path": "JavaScript/ES6_Features",
+    "type": "tree"
+  },
+  {
+    "path": "JavaScript/Examples",
+    "type": "tree"
+  },
+  {
+    "path": "JavaScript/Asynchronous_JavaScript/03-async-await.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/Asynchronous_JavaScript/01-callbacks.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/Asynchronous_JavaScript/02-promises-fetch.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/DOM_Manipulation/01-dom-select-and-update.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/DOM_Manipulation/02-events.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/DOM_Manipulation/03-form-to-UI.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/Core_Concepts/01-variables-and-types.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/Core_Concepts/02-control-flow.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/Core_Concepts/04-functions.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/Core_Concepts/03-arrays-and-objects.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/ES6_Features/01-arrow-functions-and-template-strings.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/ES6_Features/04-modules-example.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/ES6_Features/02-destructuring-spread-rest.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/ES6_Features/03-classes.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/Examples/01-mini-todo.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/Examples/03-weather-widget-mock.html",
+    "type": "blob"
+  },
+  {
+    "path": "JavaScript/Examples/02-color-picker.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/CSS Fundamentals",
+    "type": "tree"
+  },
+  {
+    "path": "HTML_CSS/Responsive_Design",
+    "type": "tree"
+  },
+  {
+    "path": "HTML_CSS/HTML_Basics",
+    "type": "tree"
+  },
+  {
+    "path": "HTML_CSS/CSS_Fundamentals",
+    "type": "tree"
+  },
+  {
+    "path": "HTML_CSS/Layouts",
+    "type": "tree"
+  },
+  {
+    "path": "HTML_CSS/Examples",
+    "type": "tree"
+  },
+  {
+    "path": "HTML_CSS/Responsive_Design/02-fluid-layout.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/Responsive_Design/01-media-queries.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/Responsive_Design/03-mobile-first-nav.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/HTML_Basics/01-document-structure.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/HTML_Basics/03-semantic-elements.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/HTML_Basics/02-forms-tables-links.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/CSS_Fundamentals/04-color-and-gradients.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/CSS_Fundamentals/03-typography.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/CSS_Fundamentals/01-selectors.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/CSS_Fundamentals/02-box-model.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/Layouts/02-grid-layout.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/Layouts/03-responsive-grid.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/Layouts/01-flexbox-layout.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/Examples/01-product-card.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/Examples/02-landing-page.html",
+    "type": "blob"
+  },
+  {
+    "path": "HTML_CSS/Examples/03-pricing-section.html",
+    "type": "blob"
+  }
+]

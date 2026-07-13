@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML/CSS Examples - Pricing</title>
+  <style>
+    body { font-family: system-ui, Arial; margin: 0; padding: 16px; background: #0b1320; color: #d9fdd0; }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 900px) {
+      .pricing { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .plan {
+      border: 1px solid #b3ff5a66;
+      border-radius: 18px;
+      padding: 16px;
+      background: #0f1b2d;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .plan.recommended::before {
+      content: "Recommended";
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #b3ff5a;
+      color: #0b1320;
+      font-weight: 1000;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    .price { font-size: 32px; font-weight: 1000; color: #b3ff5a; margin: 8px 0; }
+
+    ul { padding-left: 18px; }
+    li { margin: 6px 0; }
+
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      background: #b3ff5a;
+      color: #0b1320;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Pricing Plans</h1>
+    <p>Three columns on desktop, one on mobile.</p>
+
+    <section class="pricing">
+      <div class="plan">
+        <h2>Basic</h2>
+        <div class="price">$9</div>
+        <ul>
+          <li>HTML/CSS basics</li>
+          <li>Community examples</li>
+          <li>Email support</li>
+        </ul>
+        <a class="btn" href="#">Choose</a>
+      </div>
+
+      <div class="plan recommended">
+        <h2>Pro</h2>
+        <div class="price">$19</div>
+        <ul>
+          <li>Flexbox & Grid layouts</li>
+          <li>Responsive sections</li>
+          <li>Priority support</li>
+        </ul>
+        <a class="btn" href="#">Choose</a>
+      </div>
+
+      <div class="plan">
+        <h2>Team</h2>
+        <div class="price">$39</div>
+        <ul>
+          <li>Advanced patterns</li>
+          <li>Shared resources</li>
+          <li>Team onboarding</li>
+        </ul>
+        <a class="btn" href="#">Choose</a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+

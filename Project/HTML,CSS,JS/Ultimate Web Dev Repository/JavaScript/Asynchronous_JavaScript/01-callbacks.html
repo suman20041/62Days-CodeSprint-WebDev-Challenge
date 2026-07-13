@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Async JS - Callbacks</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    pre { background:#0b1320; color:#d9fdd0; padding:12px; border-radius:12px; min-height:120px; }
+    button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Asynchronous JS: Callbacks</h1>
+  <p>Simulate an async task using <code>setTimeout</code>.</p>
+
+  <button id="run">Run</button>
+  <pre id="out"></pre>
+
+  <script>
+    const out = document.getElementById('out');
+
+    function fakeRequest(url, callback) {
+      setTimeout(() => {
+        callback({ url, ok: true, message: 'Fetched (simulated)' });
+      }, 700);
+    }
+
+    document.getElementById('run').addEventListener('click', () => {
+      out.textContent = 'Starting...';
+      fakeRequest('/api/products', (result) => {
+        out.textContent = [
+          'Callback executed!',
+          `url: ${result.url}`,
+          `ok: ${result.ok}`,
+          `message: ${result.message}`
+        ].join('\n');
+      });
+    });
+  </script>
+</body>
+</html>
+

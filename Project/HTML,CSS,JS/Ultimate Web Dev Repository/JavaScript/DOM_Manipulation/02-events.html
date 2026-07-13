@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DOM Manipulation - Events</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    .log { background: #0b1320; color: #d9fdd0; padding: 12px; border-radius: 12px; min-height: 120px; border: 1px solid #b3ff5a66; }
+    button { margin-top: 10px; padding: 10px 14px; border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <h1>DOM: events (click + input)</h1>
+
+  <button id="btn">Click</button>
+
+  <p>
+    Type into the input to see <code>input</code> events:
+  </p>
+  <input id="inp" placeholder="Start typing..." />
+
+  <div class="log" id="log"></div>
+
+  <script>
+    const log = document.getElementById('log');
+
+    document.getElementById('btn').addEventListener('click', () => {
+      const t = new Date().toLocaleTimeString();
+      log.textContent = `Button clicked at ${t}`;
+    });
+
+    document.getElementById('inp').addEventListener('input', (e) => {
+      log.textContent = `Input changed: "${e.target.value}"`;
+    });
+  </script>
+</body>
+</html>
+

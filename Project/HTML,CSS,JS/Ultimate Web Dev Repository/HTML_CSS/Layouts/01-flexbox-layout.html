@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Layouts - Flexbox</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .item {
+      background: #0b1320;
+      color: #d9fdd0;
+      border: 1px solid #b3ff5a66;
+      border-radius: 12px;
+      padding: 14px;
+      width: 220px;
+    }
+    .item:nth-child(2) { flex: 1 1 320px; }
+  </style>
+</head>
+<body>
+  <h1>Flexbox Layout</h1>
+  <p>Uses <code>display: flex</code>, <code>gap</code>, <code>flex-wrap</code>, and item flex growth.</p>
+
+  <div class="row">
+    <div class="item">Item A<br/><small>fixed-ish width</small></div>
+    <div class="item">Item B<br/><small>flex: 1 1 320px</small></div>
+    <div class="item">Item C<br/><small>fixed-ish width</small></div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JS Examples - Mini Todo</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; background:#0b1320; color:#d9fdd0; }
+    .app { max-width: 720px; margin: 0 auto; background:#0f1b2d; border:1px solid #b3ff5a66; border-radius:18px; padding:16px; }
+    input { width: 100%; padding: 12px; border-radius: 12px; border:1px solid #b3ff5a33; background:#0b1320; color:#d9fdd0; }
+    button { margin-top: 10px; width: 100%; padding: 12px; border-radius: 12px; background:#b3ff5a; color:#0b1320; border:0; font-weight:900; cursor:pointer; }
+    .list { margin-top: 14px; display: grid; gap: 10px; }
+    .item { display:flex; align-items:center; justify-content:space-between; gap: 10px; padding: 12px; border-radius: 14px; border:1px solid #b3ff5a33; }
+    .item.done { opacity: 0.7; }
+    .left { display:flex; gap:10px; align-items:center; }
+    .tag { font-size: 12px; padding: 4px 8px; border-radius:999px; border:1px solid #b3ff5a66; color:#b3ff5a; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1 style="margin-top:0">Mini Todo</h1>
+    <p>Add tasks, mark done, and remove.</p>
+
+    <form id="form">
+      <input id="todoInput" type="text" placeholder="e.g., Learn DOM" required />
+      <button type="submit">Add Todo</button>
+    </form>
+
+    <div class="list" id="list"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('form');
+    const input = document.getElementById('todoInput');
+    const list = document.getElementById('list');
+
+    /** @type {{id:number, text:string, done:boolean}[]} */
+    let todos = [];
+    let nextId = 1;
+
+    function render() {
+      list.innerHTML = '';
+
+      if (todos.length === 0) {
+        list.innerHTML = '<div class="item">No todos yet.</div>';
+        return;
+      }
+
+      for (const t of todos) {
+        const el = document.createElement('div');
+        el.className = 'item' + (t.done ? ' done' : '');
+
+        el.innerHTML = `
+          <div class="left">
+            <input type="checkbox" ${t.done ? 'checked' : ''} data-id="${t.id}" />
+            <div>
+              <div style="font-weight:900; text-decoration:${t.done ? 'line-through' : 'none'}">${escapeHtml(t.text)}</div>
+              <div class="tag">${t.done ? 'done' : 'open'}</div>
+            </div>
+          </div>
+          <button type="button" data-remove="${t.id}" style="width:auto; padding:8px 10px; background:transparent; color:#d9fdd0; border:1px solid #b3ff5a33;">Remove</button>
+        `;
+
+        list.appendChild(el);
+      }
+
+      list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', () => {
+          const id = Number(cb.getAttribute('data-id'));
+          todos = todos.map(x => x.id === id ? { ...x, done: cb.checked } : x);
+          render();
+        });
+      });
+
+      list.querySelectorAll('button[data-remove]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = Number(btn.getAttribute('data-remove'));
+          todos = todos.filter(x => x.id !== id);
+          render();
+        });
+      });
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+
+      todos.push({ id: nextId++, text, done: false });
+      input.value = '';
+      render();
+    });
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '<')
+        .replaceAll('>', '>')
+        .replaceAll('"', '"')
+        .replaceAll("'", '&#039;');
+    }
+
+    render();
+  </script>
+</body>
+</html>
+

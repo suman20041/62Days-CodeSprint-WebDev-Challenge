@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Layouts - Responsive Grid</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .card {
+      background: #0b1320;
+      color: #d9fdd0;
+      border: 1px solid #b3ff5a66;
+      border-radius: 12px;
+      padding: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Responsive Grid with auto-fit</h1>
+  <p><code>repeat(auto-fit, minmax(220px, 1fr))</code> creates responsive columns automatically.</p>
+
+  <div class="cards">
+    <div class="card">Card 1</div>
+    <div class="card">Card 2</div>
+    <div class="card">Card 3</div>
+    <div class="card">Card 4</div>
+    <div class="card">Card 5</div>
+    <div class="card">Card 6</div>
+  </div>
+</body>
+</html>
+

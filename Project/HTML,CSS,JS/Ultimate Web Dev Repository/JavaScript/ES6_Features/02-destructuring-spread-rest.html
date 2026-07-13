@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ES6+ - Destructuring / Spread / Rest</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    pre { background:#0b1320; color:#d9fdd0; padding:12px; border-radius:12px; }
+  </style>
+</head>
+<body>
+  <h1>ES6+ Features: Destructuring, Spread, Rest</h1>
+  <pre id="out"></pre>
+
+  <script>
+    const person = { name: 'Ava', age: 25, role: 'Developer' };
+
+    const { name, age } = person; // destructuring
+
+    const skills = ['HTML', 'CSS', 'JS'];
+    const moreSkills = ['PHP', ...skills]; // spread
+
+    const sum = (...nums) => nums.reduce((a, b) => a + b, 0); // rest
+
+    document.getElementById('out').textContent = [
+      `Destructured: name=${name}, age=${age}`,
+      `Spread: moreSkills = ${moreSkills.join(', ')}`,
+      `Rest: sum(1,2,3,4) = ${sum(1,2,3,4)}`
+    ].join('\n');
+  </script>
+</body>
+</html>
+

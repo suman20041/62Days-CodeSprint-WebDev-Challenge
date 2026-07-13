@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ES6+ - Modules Example (single file)</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    pre { background:#0b1320; color:#d9fdd0; padding:12px; border-radius:12px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>ES6+ Modules (Single-file demo)</h1>
+  <p><strong>Note:</strong> Real modules typically use multiple files and <code>type="module"</code>. This repo’s viewer may not execute module loading like a bundler, so this file demonstrates module syntax conceptually inside comments.</p>
+
+  <h2>Example (what you’d put in separate files)</h2>
+  <pre>
+// math.js
+export function add(a, b) {
+  return a + b;
+}
+
+// main.js
+import { add } from './math.js';
+console.log(add(2, 3));
+  </pre>
+
+  <h2>Inline equivalent (executed here)</h2>
+  <pre id="out"></pre>
+
+  <script>
+    function add(a, b) {
+      return a + b;
+    }
+
+    document.getElementById('out').textContent = `add(2, 3) = ${add(2, 3)}`;
+  </script>
+</body>
+</html>
+

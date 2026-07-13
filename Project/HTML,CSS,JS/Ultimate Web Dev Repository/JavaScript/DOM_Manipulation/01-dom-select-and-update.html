@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DOM Manipulation - Select & Update</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    .box { padding: 12px; border-radius: 12px; background: #0b1320; border: 1px solid #b3ff5a66; color: #d9fdd0; }
+    button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>DOM: select & update</h1>
+
+  <div class="box">
+    <p id="text">Original text</p>
+    <p><strong>Counter:</strong> <span id="count">0</span></p>
+    <button id="btn">Change</button>
+  </div>
+
+  <script>
+    const text = document.getElementById('text');
+    const count = document.getElementById('count');
+    let c = 0;
+
+    document.getElementById('btn').addEventListener('click', () => {
+      c++;
+      count.textContent = String(c);
+      text.textContent = `Updated ${c} time(s)!`;
+    });
+  </script>
+</body>
+</html>
+

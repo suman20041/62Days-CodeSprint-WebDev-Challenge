@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JS Core - Control Flow</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    pre { background: #0b1320; color: #d9fdd0; padding: 12px; border-radius: 12px; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    label { display: grid; gap: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Control Flow (if/else, switch, loops)</h1>
+
+  <div class="row">
+    <label>
+      Enter a number:
+      <input id="n" type="number" value="7" />
+    </label>
+    <button id="run">Run</button>
+  </div>
+
+  <pre id="out"></pre>
+
+  <script>
+    const out = document.getElementById('out');
+    document.getElementById('run').addEventListener('click', () => {
+      const n = Number(document.getElementById('n').value);
+
+      let msg;
+      if (n < 0) msg = 'Negative';
+      else if (n === 0) msg = 'Zero';
+      else msg = 'Positive';
+
+      let grade;
+      switch (true) {
+        case n >= 90: grade = 'A'; break;
+        case n >= 80: grade = 'B'; break;
+        case n >= 70: grade = 'C'; break;
+        case n >= 60: grade = 'D'; break;
+        default: grade = 'F';
+      }
+
+      const squares = [];
+      for (let i = 1; i <= 5; i++) squares.push(i * i);
+
+      out.textContent = [
+        `n = ${n}`,
+        `if/else result: ${msg}`,
+        `switch result: grade = ${grade}`,
+        `loop result: squares(1..5) = ${squares.join(', ')}`
+      ].join('\n');
+    });
+  </script>
+</body>
+</html>
+

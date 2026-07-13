@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSS Fundamentals - Color & Gradients</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+
+    .swatch { display: inline-block; width: 140px; height: 60px; border-radius: 12px; margin: 10px; border: 1px solid #00000022; }
+
+    .g1 { background: linear-gradient(90deg, #b3ff5a, #00e0ff); }
+    .g2 { background: radial-gradient(circle at top left, #b3ff5a, #0b1320 55%); }
+    .g3 { background: linear-gradient(135deg, #ff4d4d, #b3ff5a, #7c5cff); }
+  </style>
+</head>
+<body>
+  <h1>Color & Gradients</h1>
+  <div class="swatch g1" aria-label="linear gradient"></div>
+  <div class="swatch g2" aria-label="radial gradient"></div>
+  <div class="swatch g3" aria-label="multi-stop gradient"></div>
+
+  <p>
+    Try editing the gradient angles and color stops to see how gradients are computed.
+  </p>
+</body>
+</html>
+

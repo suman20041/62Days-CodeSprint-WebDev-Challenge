@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ES6+ - Classes</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    pre { background:#0b1320; color:#d9fdd0; padding:12px; border-radius:12px; }
+  </style>
+</head>
+<body>
+  <h1>ES6+ Features: Classes</h1>
+  <p>Create instances and call methods.</p>
+  <pre id="out"></pre>
+
+  <script>
+    class Todo {
+      constructor(title) {
+        this.title = title;
+        this.done = false;
+      }
+      toggle() {
+        this.done = !this.done;
+      }
+      toString() {
+        return `${this.done ? '[x]' : '[ ]'} ${this.title}`;
+      }
+    }
+
+    const t1 = new Todo('Learn ES6');
+    const t2 = new Todo('Build a project');
+    t2.toggle();
+
+    const out = document.getElementById('out');
+    out.textContent = [
+      t1.toString(),
+      t2.toString()
+    ].join('\n');
+  </script>
+</body>
+</html>
+
