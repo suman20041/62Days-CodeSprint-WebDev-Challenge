@@ -1,0 +1,93 @@
+body {
+    background: #d16edc;
+    text-align: center;
+}
+
+.bts {
+    margin: 0;
+    font: 200px 'Poppins', sans-serif;
+    font-weight: 1000;
+    background: url(./images/col.jpg);
+    background-size: 40%;
+    background-position: 50% 50%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: rgba(0,0,0,0.08);
+    animation: zoomout 10s ease 500ms forwards;
+}
+
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 28%;
+    height: 200px;
+    perspective: 1000px;
+    margin: 35px;
+}
+  
+.flip-card-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+}
+  
+.flip-card:hover .flip-card-container {
+    transform: rotateY(180deg);
+}
+  
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 4px;
+    box-shadow: 5px 10px #762383;
+}
+
+.flip-card-back {
+    background: linear-gradient(116deg, #cc3fff 0%, #822492 100%);
+    color: white;
+    font: 45px 'The Nautigal', cursive;
+    transform: rotateY(180deg);
+}
+  
+.flip-card-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+
+@keyframes zoomout {
+  from {
+    background-size: 70%;
+  }
+  to {
+    background-size: 15%;
+  }
+}
+
+@media(max-width: 1023px){
+    .flip-card{
+        margin: 25px 10px;
+        /* padding: 0; */
+        width: 100%;
+    }
+
+    .flip-card-back{
+        font-size: 40px;
+    }
+}
