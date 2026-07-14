@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Palette Extractor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">🎨</span>
+      <div>
+        <h1>Color Palette Extractor</h1>
+        <p class="tagline">Upload an image — extract dominant colors and copy hex, RGB, or HSL</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="upload-section">
+      <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Upload or drop an image">
+        <input type="file" id="fileInput" accept="image/*" hidden />
+        <div id="dropContent" class="drop-content">
+          <span class="drop-icon">🖼️</span>
+          <p><strong>Click to upload</strong> or drag &amp; drop an image</p>
+          <p class="drop-hint">PNG, JPG, WEBP supported</p>
+        </div>
+        <img id="imagePreview" class="image-preview hidden" alt="Uploaded image preview" />
+        <div id="loadingState" class="loading-state hidden" aria-live="polite">Extracting colors…</div>
+        <p id="errorState" class="error-state hidden" role="alert"></p>
+      </div>
+
+      <label class="control-label" for="colorCount">Number of colors</label>
+      <input type="range" id="colorCount" min="3" max="10" value="6" />
+      <span id="colorCountVal" class="count-val">6</span>
+    </section>
+
+    <section class="palette-section" aria-labelledby="palette-heading">
+      <h2 id="palette-heading">Extracted Palette</h2>
+      <p id="paletteEmpty" class="palette-empty">Upload an image to see its dominant colors here.</p>
+      <div id="paletteGrid" class="palette-grid"></div>
+    </section>
+  </main>
+
+  <canvas id="canvas" hidden></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
