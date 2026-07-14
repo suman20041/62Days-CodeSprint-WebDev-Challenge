@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Password Strength Analyzer Pro — real-time password analysis, entropy estimation, and secure password generation.">
+  <title>Password Strength Analyzer Pro</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header__brand">
+        <div class="header__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="header__title">Password Strength Analyzer Pro</h1>
+          <p class="header__subtitle">Create stronger passwords with real-time security insights</p>
+        </div>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+        <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </header>
+
+    <main class="main">
+      <section class="card card--primary" aria-labelledby="analyzer-heading">
+        <h2 id="analyzer-heading" class="sr-only">Password Analyzer</h2>
+
+        <div class="password-input-group">
+          <div class="password-input-group__header">
+            <label for="passwordInput" class="password-input-group__label">Enter your password</label>
+            <span class="char-count" id="charCount" aria-live="polite">0 chars</span>
+          </div>
+          <div class="password-input-wrapper">
+            <input
+              type="password"
+              id="passwordInput"
+              class="password-input"
+              placeholder="Type or generate a password..."
+              autocomplete="off"
+              spellcheck="false"
+              aria-describedby="strengthLabel crackTime entropyValue entropyBadge"
+            >
+            <div class="password-input-actions">
+              <button type="button" class="btn-icon" id="clearPassword" aria-label="Clear password" title="Clear password">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+              <button type="button" class="btn-icon" id="toggleVisibility" aria-label="Show password" title="Show password">
+                <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" hidden>
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+              <button type="button" class="btn-icon" id="copyPassword" aria-label="Copy password" title="Copy password">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="strength-section">
+          <div class="strength-header">
+            <span class="strength-label" id="strengthLabel">Enter a password</span>
+            <span class="strength-score" id="strengthScore" aria-live="polite">—</span>
+          </div>
+          <div class="strength-meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="strengthMeter">
+            <div class="strength-meter__bar" id="strengthBar"></div>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric metric--highlight">
+            <span class="metric__label">
+              <svg class="metric__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+              Entropy
+            </span>
+            <span class="metric__value" id="entropyValue">0 bits</span>
+            <span class="entropy-badge entropy-badge--none" id="entropyBadge">—</span>
+          </div>
+          <div class="metric">
+            <span class="metric__label">
+              <svg class="metric__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              Crack Time
+            </span>
+            <span class="metric__value" id="crackTime">Instant</span>
+          </div>
+          <div class="metric">
+            <span class="metric__label">
+              <svg class="metric__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 7V4h16v3"/>
+                <path d="M9 20h6"/>
+                <path d="M12 4v16"/>
+              </svg>
+              Length
+            </span>
+            <span class="metric__value" id="passwordLength">0</span>
+          </div>
+        </div>
+
+        <div class="alert alert--warning" id="commonPasswordAlert" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span id="commonPasswordMessage">This password appears in common password lists.</span>
+        </div>
+      </section>
+
+      <div class="grid-2">
+        <section class="card" aria-labelledby="requirements-heading">
+          <div class="card__header">
+            <h3 id="requirements-heading" class="card__title">
+              <svg class="card__title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 11l3 3L22 4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+              Requirements
+            </h3>
+            <span class="progress-pill" id="requirementsProgress">0 / 9</span>
+          </div>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="9" aria-valuenow="0" id="requirementsBar">
+            <div class="progress-bar__fill" id="requirementsBarFill"></div>
+          </div>
+          <ul class="checklist" id="requirementsList">
+            <li class="checklist__item" data-requirement="length">
+              <span class="checklist__icon" aria-hidden="true"></span>
+              <span>At least 8 characters</span>
+            </li>
+            <li class="checklist__item" data-requirement="length12">
+              <span class="checklist__icon" aria-hidden="true"></span>
+              <span>12+ characters (recommended)</span>
+            </li>
+            <li class="checklist__item" data-requirement="uppercase">
+              <span class="checklist__icon" aria-hidden="true"></span>
+              <span>Uppercase letter (A–Z)</span>
+            </li>
+            <li class="checklist__item" data-requirement="lowercase">
+              <span class="checklist__icon" aria-hidden="true"></span>
+              <span>Lowercase letter (a–z)</span>
+            </li>
+            <li class="checklist__item" data-requirement="number">
+              <span class="checklist__icon" aria-hidden="true"></span>
+              <span>Number (0–9)</span>
+            </li>
+            <li class="checklist__item" data-requirement="special">
+              <span class="checklist__icon" aria-hidden="true"></span>
+              <span>Special character (!@#$...)</span>
+            </li>
+            <li class="checklist__item" data-requirement="noCommon">
+              <span class="checklist__icon" aria-hidden="true"></span>
+              <span>Not a common password</span>
+            </li>
+            <li class="checklist__item" data-requirement="noSequence">
+              <span class="checklist__icon" aria-hidden="true"></span>
+              <span>No obvious sequences (123, abc)</span>
+            </li>
+            <li class="checklist__item" data-requirement="noRepeat">
+              <span class="checklist__icon" aria-hidden="true"></span>
+              <span>No repeated characters (aaa)</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="card" aria-labelledby="suggestions-heading">
+          <h3 id="suggestions-heading" class="card__title">
+            <svg class="card__title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            Security Suggestions
+          </h3>
+          <ul class="suggestions" id="suggestionsList">
+            <li class="suggestions__item suggestions__item--neutral">Start typing to receive personalized suggestions.</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="card card--generator" aria-labelledby="generator-heading">
+        <h3 id="generator-heading" class="card__title">
+          <svg class="card__title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          Secure Password Generator
+        </h3>
+        <div class="generator-options">
+          <div class="generator-option">
+            <label for="genLength">Length</label>
+            <div class="range-control">
+              <input type="range" id="genLength" min="8" max="64" value="16">
+              <output for="genLength" id="genLengthValue">16</output>
+            </div>
+          </div>
+          <div class="generator-toggles">
+            <label class="toggle">
+              <input type="checkbox" id="genUppercase" checked>
+              <span class="toggle__slider"></span>
+              <span class="toggle__label">A–Z</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" id="genLowercase" checked>
+              <span class="toggle__slider"></span>
+              <span class="toggle__label">a–z</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" id="genNumbers" checked>
+              <span class="toggle__slider"></span>
+              <span class="toggle__label">0–9</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" id="genSymbols" checked>
+              <span class="toggle__slider"></span>
+              <span class="toggle__label">!@#</span>
+            </label>
+          </div>
+        </div>
+        <button type="button" class="btn btn--primary" id="generatePassword">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          Generate Secure Password
+        </button>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Password Strength Analyzer Pro — All analysis runs locally in your browser. Your password is never sent anywhere.</p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
