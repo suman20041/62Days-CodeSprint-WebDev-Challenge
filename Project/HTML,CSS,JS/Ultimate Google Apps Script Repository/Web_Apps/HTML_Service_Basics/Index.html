@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 2rem;
+        background-color: #f0f4f9;
+      }
+      h1 {
+        color: #1a73e8;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello from a Google Apps Script Web App!</h1>
+    <p>This is a simple HTML page served by the HTML Service.</p>
+    <p>The current time on the server is: <?= new Date() ?>.</p>
+    
+    <!-- 
+      The <?= ... ?> syntax is a "printing scriplet".
+      It allows you to run server-side Apps Script code and print the output
+      directly into the HTML before it's sent to the client.
+    -->
+  </body>
+</html>

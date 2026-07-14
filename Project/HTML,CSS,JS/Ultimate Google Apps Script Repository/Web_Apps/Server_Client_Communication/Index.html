@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body { font-family: sans-serif; padding: 2rem; }
+      #response { margin-top: 1rem; font-weight: bold; color: green; }
+      input, button { padding: 8px; font-size: 1rem; }
+    </style>
+  </head>
+  <body>
+    <h1>Client-Server Communication</h1>
+    <p>Enter your name and click the button to get a greeting from the server.</p>
+    
+    <input type="text" id="nameInput" placeholder="Your Name">
+    <button onclick="callServerFunction()">Get Greeting</button>
+    
+    <div id="response"></div>
+
+    <script>
+      /**
+       * This function is called when the button is clicked.
+       */
+      function callServerFunction() {
+        const name = document.getElementById('nameInput').value;
+        const responseDiv = document.getElementById('response');
+        
+        responseDiv.textContent = "Calling server...";
+
+        /**
+         * `google.script.run` is the asynchronous client-side API that allows
+         * you to call server-side Apps Script functions.
+         *
+         * - `.withSuccessHandler(function)` specifies the callback to run if the server function succeeds.
+         * - `.withFailureHandler(function)` specifies the callback to run if it fails.
+         * - The last part is the name of the server function to call (`getServerGreeting`),
+         *   followed by its arguments (`name`).
+         */
+        google.script.run
+          .withSuccessHandler(updateResponse)
+          .withFailureHandler(onFailure)
+          .getServerGreeting(name);
+      }
+
+      /**
+       * Callback function for a successful server call.
+       * @param {string} greeting The value returned by the server function.
+       */
+      function updateResponse(greeting) {
+        document.getElementById('response').textContent = greeting;
+      }
+
+      /**
+       * Callback function for a failed server call.
+       * @param {Error} error The error object.
+       */
+      function onFailure(error) {
+        const responseDiv = document.getElementById('response');
+        responseDiv.textContent = "Error: " + error.message;
+        responseDiv.style.color = 'red';
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💻 Ultimate Google Apps Script Repository</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="style.css?v=2">
+<body>
+
+    <div class="scanlines"></div>
+
+    <header>
+        <h1><a href="index.html" style="color: #ffffff; text-decoration: none;">💻 Ultimate Google Apps Script Repository 📖</a></h1>
+        <nav>
+            <ul id="topic-navigation">
+                <li class="nav-item">
+                    <span class="nav-topic-title" data-topic="Fundamentals">🌐 Fundamentals</span>
+                    <ul class="dropdown-menu" data-topic="Fundamentals"></ul>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-topic-title" data-topic="Google Workspace Integration">📜 Google Workspace Integration</span>
+                    <ul class="dropdown-menu" data-topic="Google Workspace Integration"></ul>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-topic-title" data-topic="Web Apps">🐘 Web Apps</span>
+                    <ul class="dropdown-menu" data-topic="Web Apps"></ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="dashboard-split-container home-view" id="main-split-layout">
+        
+        <aside class="sidebar-index-container" id="sidebar-table-of-contents">
+            <h3 class="sidebar-title">📋 Contents</h3>
+            <div id="sidebar-tree-wrapper">
+                <p class="placeholder-text" style="font-size: 0.95rem;">Select a topic to view its content outline map.</p>
+            </div>
+        </aside>
+
+        <main class="main-content-wrapper">
+            <section class="content-section">
+                <h2 id="current-subtopic-title">🎯 Overview</h2>
+                
+                <div id="programs-container">
+                    <div style="display: flex; justify-content: center; gap: 2rem; margin: 2rem auto;">
+                        <img src="https://img.shields.io/badge/Google%20Apps%20Script-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Apps Script" height="40">
+                    </div>
+
+                    <p>Welcome to the <b>Ultimate Google Apps Script Repository</b>. This is an interactive collection of code examples for automating tasks across Google products and beyond.</p>
+                    <br>
+                    <p>This website features <b>structured and well-documented code snippets, organized by topic, making it ideal for learning or quick reference for both beginners and experienced developers.</b></p>
+
+                    <br><hr><br>
+                    
+                    <h2>🚀 Technologies Covered</h2>
+                    <p>This repository covers the essential building blocks of Google Apps Script development:</p><br>
+                    <ul>
+                        <li><strong>Google Apps Script:</strong> A rapid application development platform that makes it fast and easy to create business applications that integrate with Google Workspace.</li>
+                        <li><strong>JavaScript:</strong> Apps Script is based on JavaScript, providing a familiar and powerful foundation.</li>
+                        <li><strong>Google Workspace APIs:</strong> Interact with services like Google Sheets, Docs, Forms, Calendar, and Gmail programmatically.</li>
+                        <li><strong>HTML/CSS/JavaScript:</strong> Build custom user interfaces for your scripts and web apps.</li>
+                    </ul>
+
+                    <br>
+                    <hr>
+                    <br>
+
+                    <h2>📁 Topics</h2>
+                    <div class="nested-group-container">
+                        <p><strong>🌐 Fundamentals</strong></p>
+                        <ul>
+                            <li><a href="#" class="page-link" data-parent="Fundamentals" data-path="Fundamentals/Basic_Syntax">Basic Syntax</a></li>
+                            <li><a href="#" class="page-link" data-parent="Fundamentals" data-path="Fundamentals/Triggers">Triggers</a></li>
+                            <li><a href="#" class="page-link" data-parent="Fundamentals" data-path="Fundamentals/Core_Services">Core Services</a></li>
+                        </ul>
+                        <br>
+                        <p><strong>📜 Google Workspace Integration</strong></p>
+                        <ul>
+                            <li><a href="#" class="page-link" data-parent="Google Workspace Integration" data-path="Google_Workspace_Integration/Google_Docs">Working with Google Docs</a></li>
+                            <li><a href="#" class="page-link" data-parent="Google Workspace Integration" data-path="Google_Workspace_Integration/Google_Sheets">Working with Google Sheets</a></li>
+                            <li><a href="#" class="page-link" data-parent="Google Workspace Integration" data-path="Google_Workspace_Integration/Google_Forms">Working with Google Forms</a></li>
+                            <li><a href="#" class="page-link" data-parent="Google Workspace Integration" data-path="Google_Workspace_Integration/Google_Calendar">Working with Google Calendar</a></li>
+                        </ul>
+                        <br>
+                        <p><strong>🐘 Web Apps</strong></p>
+                        <ul>
+                            <li><a href="#" class="page-link" data-parent="Web Apps" data-path="Web_Apps/HTML_Service_Basics">HTML Service Basics</a></li>
+                            <li><a href="#" class="page-link" data-parent="Web Apps" data-path="Web_Apps/Server_Client_Communication">Server-Client Communication</a></li>
+                        </ul>
+                    </div>
+
+                    <br>
+
+                </div>
+            </section>
+        </main>
+        
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+
+    <div id="to-top" title="Go to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffe563" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+        <span>To Top</span>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

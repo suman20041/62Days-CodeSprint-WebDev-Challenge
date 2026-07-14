@@ -1,0 +1,134 @@
+[
+  {
+    "path": "Fundamentals",
+    "type": "tree"
+  },
+  {
+    "path": "Google_Workspace_Integration",
+    "type": "tree"
+  },
+  {
+    "path": "Web_Apps",
+    "type": "tree"
+  },
+  {
+    "path": "Fundamentals Overview.md",
+    "type": "blob"
+  },
+  {
+    "path": "Google Workspace Integration Overview.md",
+    "type": "blob"
+  },
+  {
+    "path": "LICENSE",
+    "type": "blob"
+  },
+  {
+    "path": "Web Apps Overview.md",
+    "type": "blob"
+  },
+  {
+    "path": "Fundamentals/Basic_Syntax",
+    "type": "tree"
+  },
+  {
+    "path": "Fundamentals/Core_Services",
+    "type": "tree"
+  },
+  {
+    "path": "Fundamentals/Triggers",
+    "type": "tree"
+  },
+  {
+    "path": "Fundamentals/Basic_Syntax/01_Variables_and_Data_Types.js",
+    "type": "blob"
+  },
+  {
+    "path": "Fundamentals/Basic_Syntax/02_Logging.js",
+    "type": "blob"
+  },
+  {
+    "path": "Fundamentals/Core_Services/01_PropertiesService.js",
+    "type": "blob"
+  },
+  {
+    "path": "Fundamentals/Core_Services/02_CacheService.js",
+    "type": "blob"
+  },
+  {
+    "path": "Fundamentals/Triggers/01_Simple_Triggers.js",
+    "type": "blob"
+  },
+  {
+    "path": "Fundamentals/Triggers/02_Time_Driven_Triggers.js",
+    "type": "blob"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Calendar",
+    "type": "tree"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Docs",
+    "type": "tree"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Forms",
+    "type": "tree"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Sheets",
+    "type": "tree"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Calendar/01_Create_Calendar_Event.js",
+    "type": "blob"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Docs/01_Create_And_Edit_Document.js",
+    "type": "blob"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Forms/01_Create_Form_On_Submit_Trigger.js",
+    "type": "blob"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Sheets/01_Read_Sheet_Data.js",
+    "type": "blob"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Sheets/02_Write_To_Sheet.js",
+    "type": "blob"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Sheets/Code.js",
+    "type": "blob"
+  },
+  {
+    "path": "Google_Workspace_Integration/Google_Sheets/Index.html",
+    "type": "blob"
+  },
+  {
+    "path": "Web_Apps/HTML_Service_Basics",
+    "type": "tree"
+  },
+  {
+    "path": "Web_Apps/Server_Client_Communication",
+    "type": "tree"
+  },
+  {
+    "path": "Web_Apps/HTML_Service_Basics/Code.js",
+    "type": "blob"
+  },
+  {
+    "path": "Web_Apps/HTML_Service_Basics/Index.html",
+    "type": "blob"
+  },
+  {
+    "path": "Web_Apps/Server_Client_Communication/Code.js",
+    "type": "blob"
+  },
+  {
+    "path": "Web_Apps/Server_Client_Communication/Index.html",
+    "type": "blob"
+  }
+]
