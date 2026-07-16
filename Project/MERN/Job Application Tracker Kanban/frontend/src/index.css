@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Newsreader", Georgia, serif;
+  --font-sans: "Lexend", system-ui, sans-serif;
+  --color-ink: #0c2340;
+  --color-muted: #5c6b7a;
+  --color-paper: #f2f5f8;
+  --color-surface: #ffffff;
+  --color-line: #d4dde6;
+  --color-steel: #457b9d;
+  --color-steel-soft: #e8f1f6;
+  --color-coral: #e63946;
+  --color-coral-soft: #fde8ea;
+  --color-sea: #2a9d8f;
+  --color-sea-soft: #e6f5f2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background:
+    radial-gradient(ellipse 55% 40% at 0% 0%, rgba(69, 123, 157, 0.14), transparent 55%),
+    radial-gradient(ellipse 45% 35% at 100% 0%, rgba(230, 57, 70, 0.08), transparent 50%),
+    linear-gradient(180deg, #f5f7fa 0%, #eef2f6 100%);
+  background-attachment: fixed;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.4s ease-out both;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.kanban-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #b8c5d1 transparent;
+}
