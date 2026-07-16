@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --color-ink: #14213d;
+  --color-muted: #5a6478;
+  --color-paper: #f3f6f4;
+  --color-surface: #ffffff;
+  --color-line: #d5ddd8;
+  --color-copper: #c45c26;
+  --color-copper-soft: #f8ebe3;
+  --color-forest: #3d7a5c;
+  --color-forest-soft: #e5f0ea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background:
+    radial-gradient(ellipse 55% 40% at 0% 0%, rgba(196, 92, 38, 0.1), transparent 55%),
+    radial-gradient(ellipse 50% 35% at 100% 0%, rgba(61, 122, 92, 0.12), transparent 50%),
+    linear-gradient(180deg, #f6f8f6 0%, #eef3f0 100%);
+  background-attachment: fixed;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flip-hint {
+  from {
+    opacity: 0;
+    transform: rotateX(-8deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.4s ease-out both;
+}
+
+.animate-flip {
+  animation: flip-hint 0.35s ease-out both;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
