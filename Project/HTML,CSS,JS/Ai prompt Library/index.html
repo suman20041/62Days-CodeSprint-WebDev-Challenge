@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prompt/Lib — AI Prompt Library</title>
+<meta name="description" content="Browse, search and copy high-quality AI prompts for coding, debugging, interviews and productivity." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="#" aria-label="Prompt/Lib home">
+        <span class="wordmark-mark">⌗</span>
+        <span class="wordmark-text">PROMPT<span class="wordmark-slash">/</span>LIB</span>
+      </a>
+
+      <div class="search-wrap">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <input id="searchInput" type="text" placeholder="Search prompts, tags, keywords…" aria-label="Search prompts" autocomplete="off" />
+        <kbd class="search-kbd">/</kbd>
+      </div>
+
+      <div class="header-actions">
+        <button id="randomBtn" class="btn btn-ghost" type="button" title="Show me a random prompt">
+          <span class="dice" aria-hidden="true">⚄</span>
+          <span class="btn-label">Random</span>
+        </button>
+        <button id="favToggle" class="btn btn-ghost" type="button" title="Show favorites" aria-pressed="false">
+          <span class="heart-ico" aria-hidden="true">♥</span>
+          <span class="btn-label">Favorites</span>
+          <span id="favCount" class="fav-count">0</span>
+        </button>
+        <button id="themeToggle" class="btn btn-icon" type="button" title="Toggle dark / light mode" aria-label="Toggle theme">
+          <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+            <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+              <path d="M12 2.5v2.6"/><path d="M12 18.9v2.6"/><path d="M21.5 12h-2.6"/><path d="M5.1 12H2.5"/>
+              <path d="M18.36 5.64l-1.84 1.84"/><path d="M7.48 16.48l-1.84 1.84"/>
+              <path d="M18.36 18.36l-1.84-1.84"/><path d="M7.48 7.48L5.64 5.64"/>
+            </g>
+          </svg>
+          <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none">
+            <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.6 8.6 0 1 0 10.5 10.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Category rail ===== -->
+  <nav class="category-rail" aria-label="Categories">
+    <div class="category-rail-inner" id="categoryRail">
+      <!-- chips injected by JS -->
+    </div>
+  </nav>
+
+  <!-- ===== Main ===== -->
+  <main class="main-wrap">
+    <div class="results-bar">
+      <p id="resultsCount" class="results-count">Showing all prompts</p>
+      <label class="sort-wrap">
+        <span>Sort</span>
+        <select id="sortSelect" aria-label="Sort prompts">
+          <option value="default">Catalog order</option>
+          <option value="az">Title A–Z</option>
+          <option value="za">Title Z–A</option>
+          <option value="category">Category</option>
+        </select>
+      </label>
+    </div>
+
+    <section id="cardGrid" class="card-grid" aria-live="polite">
+      <!-- prompt cards injected by JS -->
+    </section>
+
+    <div id="emptyState" class="empty-state" hidden>
+      <div class="empty-stamp">∅</div>
+      <h3>No prompts on file</h3>
+      <p>Nothing matches that search or filter combination. Try a different keyword or clear the filter.</p>
+      <button id="emptyResetBtn" class="btn btn-primary" type="button">Clear filters</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Prompt/Lib — a static reference catalog of prompts. Built with HTML, CSS &amp; vanilla JavaScript. Favorites are stored only in your browser.</p>
+  </footer>
+
+  <!-- ===== Prompt detail / random modal ===== -->
+  <div id="modalOverlay" class="modal-overlay" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-tab">
+        <span id="modalCatLabel" class="modal-cat-label">CAT · 000</span>
+        <button id="modalClose" class="modal-close" type="button" aria-label="Close">✕</button>
+      </div>
+      <h2 id="modalTitle">Prompt title</h2>
+      <p id="modalTags" class="modal-tags"></p>
+      <div class="perforation" aria-hidden="true"></div>
+      <pre id="modalBody" class="modal-body"></pre>
+      <div class="modal-actions">
+        <button id="modalCopy" class="btn btn-primary" type="button">
+          <span class="copy-ico" aria-hidden="true">⧉</span> Copy prompt
+        </button>
+        <button id="modalFav" class="btn btn-ghost" type="button">
+          <span aria-hidden="true">♡</span> Save to favorites
+        </button>
+        <button id="modalAnother" class="btn btn-ghost" type="button">
+          <span aria-hidden="true">⚄</span> Another random
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Toast ===== -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
