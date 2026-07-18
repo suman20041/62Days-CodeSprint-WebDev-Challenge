@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>git profile view</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0e0f;
+    --panel: #11171a;
+    --panel-border: #22292c;
+    --text: #d8dee2;
+    --text-dim: #7b8891;
+    --add: #3fb950;
+    --add-dim: #1a3d24;
+    --rm: #f85149;
+    --rm-dim: #3d1a1a;
+    --link: #d29922;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at top left, rgba(63,185,80,0.05), transparent 40%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    min-height:100vh;
+    padding:32px 16px 80px;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+
+  /* terminal chrome */
+  .term{
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  .term-bar{
+    display:flex;align-items:center;gap:8px;
+    padding:10px 14px;
+    background:#161c1f;
+    border-bottom:1px solid var(--panel-border);
+  }
+  .dot{width:10px;height:10px;border-radius:50%;}
+  .dot.r{background:#f85149;}
+  .dot.y{background:#d29922;}
+  .dot.g{background:#3fb950;}
+  .term-title{
+    margin-left:8px;font-family:var(--mono);font-size:12px;color:var(--text-dim);
+  }
+
+  .cmd-row{
+    display:flex;align-items:center;gap:10px;
+    padding:18px 20px;
+    font-family:var(--mono);
+    border-bottom:1px solid var(--panel-border);
+  }
+  .prompt{color:var(--add);font-weight:600;white-space:nowrap;}
+  .cmd-row input{
+    flex:1;background:transparent;border:none;outline:none;
+    color:var(--text);font-family:var(--mono);font-size:15px;
+    caret-color:var(--add);
+  }
+  .cmd-row input::placeholder{color:var(--text-dim);}
+  .go-btn{
+    background:var(--add-dim);color:var(--add);
+    border:1px solid #2a5c34;border-radius:4px;
+    font-family:var(--mono);font-size:12px;font-weight:600;
+    padding:6px 12px;cursor:pointer;white-space:nowrap;
+  }
+  .go-btn:hover{background:#204a29;}
+  .go-btn:disabled{opacity:0.5;cursor:default;}
+
+  .body-area{padding:20px;min-height:60px;}
+
+  .hint{
+    font-family:var(--mono);color:var(--text-dim);font-size:13px;line-height:1.7;
+  }
+  .hint b{color:var(--text);}
+
+  .err{
+    font-family:var(--mono);color:var(--rm);font-size:13px;
+    background:var(--rm-dim);border:1px solid #5c2323;border-radius:4px;
+    padding:12px 14px;
+  }
+
+  .loading{font-family:var(--mono);color:var(--text-dim);font-size:13px;}
+  .loading .cur{animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* profile card */
+  .profile{display:none;}
+  .profile.show{display:block;animation:fadeup 0.35s ease both;}
+  @keyframes fadeup{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .p-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:18px;}
+  .avatar{
+    width:72px;height:72px;border-radius:6px;
+    border:1px solid var(--panel-border);
+    flex-shrink:0;
+  }
+  .p-idline{font-family:var(--mono);font-size:12px;color:var(--text-dim);margin-bottom:4px;}
+  .p-name{font-family:var(--sans);font-weight:600;font-size:19px;color:var(--text);}
+  .p-login{font-family:var(--mono);color:var(--link);font-size:13px;margin-left:6px;}
+  .p-bio{font-family:var(--sans);color:var(--text);font-size:14px;line-height:1.55;margin-top:8px;}
+  .p-meta{
+    display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:10px;
+    font-family:var(--mono);font-size:12px;color:var(--text-dim);
+  }
+  .p-meta span b{color:var(--text);font-weight:500;}
+  .p-meta a{color:var(--link);text-decoration:none;}
+  .p-meta a:hover{text-decoration:underline;}
+
+  /* diffstat */
+  .diffstat{
+    font-family:var(--mono);font-size:12px;
+    border:1px solid var(--panel-border);
+    border-radius:6px;
+    padding:14px 16px;
+    margin:16px 0 20px;
+    background:#0d1315;
+  }
+  .diffstat-title{color:var(--text-dim);margin-bottom:10px;}
+  .ds-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .ds-row:last-child{margin-bottom:0;}
+  .ds-label{width:96px;color:var(--text-dim);flex-shrink:0;}
+  .ds-num{width:46px;text-align:right;flex-shrink:0;font-weight:600;}
+  .ds-num.add{color:var(--add);}
+  .ds-num.rm{color:var(--rm);}
+  .ds-bar{flex:1;display:flex;gap:1px;height:12px;border-radius:2px;overflow:hidden;background:#1c2427;}
+  .ds-fill{height:100%;}
+  .ds-fill.add{background:var(--add);}
+  .ds-fill.rm{background:var(--rm);}
+
+  /* repo listing */
+  .section-label{
+    font-family:var(--mono);font-size:12px;color:var(--text-dim);
+    margin:22px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--panel-border);
+  }
+  .repo-list{display:flex;flex-direction:column;}
+  .repo-row{
+    display:flex;align-items:baseline;gap:10px;
+    padding:9px 0;border-bottom:1px solid #1a2124;
+    font-family:var(--mono);font-size:12.5px;
+  }
+  .repo-row:last-child{border-bottom:none;}
+  .lang-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--text-dim);}
+  .repo-name{color:var(--text);font-weight:600;text-decoration:none;flex-shrink:0;}
+  .repo-name:hover{color:var(--link);}
+  .repo-desc{
+    color:var(--text-dim);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;
+    white-space:nowrap;font-family:var(--sans);font-size:12.5px;
+  }
+  .repo-star{color:var(--link);flex-shrink:0;white-space:nowrap;}
+
+  .empty-note{font-family:var(--mono);color:var(--text-dim);font-size:12px;padding:8px 0;}
+
+  footer{
+    text-align:center;font-family:var(--mono);color:var(--text-dim);
+    font-size:11px;margin-top:22px;
+  }
+
+  @media (max-width:480px){
+    .p-head{flex-direction:column;align-items:flex-start;}
+    .repo-desc{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="term">
+    <div class="term-bar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <div class="term-title">profile-viewer — bash</div>
+    </div>
+    <div class="cmd-row">
+      <span class="prompt">$ git profile view</span>
+      <input id="username" type="text" placeholder="octocat" autocomplete="off" spellcheck="false">
+      <button class="go-btn" id="goBtn">run</button>
+    </div>
+    <div class="body-area" id="body">
+      <div class="hint">
+        Type a GitHub username above and press <b>run</b> (or Enter).<br>
+        Pulls live data straight from the GitHub REST API.
+      </div>
+    </div>
+  </div>
+  <footer>data via api.github.com · unauthenticated requests are rate-limited to 60/hr</footer>
+</div>
+
+<script>
+const input = document.getElementById('username');
+const goBtn = document.getElementById('goBtn');
+const body = document.getElementById('body');
+
+function esc(s){
+  const d = document.createElement('div');
+  d.innerText = s ?? '';
+  return d.innerHTML;
+}
+
+function fmtNum(n){
+  if(n >= 1000) return (n/1000).toFixed(n % 1000 === 0 ? 0 : 1) + 'k';
+  return String(n);
+}
+
+function timeAgo(dateStr){
+  const d = new Date(dateStr);
+  const diff = Math.floor((Date.now() - d.getTime())/1000);
+  const units = [[31536000,'y'],[2592000,'mo'],[86400,'d'],[3600,'h'],[60,'m']];
+  for(const [s,label] of units){
+    if(diff >= s) return Math.floor(diff/s) + label + ' ago';
+  }
+  return 'just now';
+}
+
+const LANG_COLORS = {
+  JavaScript:'#f1e05a', TypeScript:'#3178c6', Python:'#3572A5', Java:'#b07219',
+  Go:'#00ADD8', Rust:'#dea584', C:'#555555', 'C++':'#f34b7d', 'C#':'#178600',
+  HTML:'#e34c26', CSS:'#563d7c', Ruby:'#701516', PHP:'#4F5D95', Shell:'#89e051',
+  Swift:'#F05138', Kotlin:'#A97BFF', Dart:'#00B4AB', Vue:'#41b883'
+};
+
+function langColor(lang){
+  return LANG_COLORS[lang] || '#8b949e';
+}
+
+async function runSearch(){
+  const username = input.value.trim();
+  if(!username){
+    input.focus();
+    return;
+  }
+  goBtn.disabled = true;
+  body.innerHTML = `<div class="loading">fetching /users/${esc(username)}<span class="cur">_</span></div>`;
+
+  try {
+    const [userRes, reposRes] = await Promise.all([
+      fetch(`https://api.github.com/users/${encodeURIComponent(username)}`),
+      fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=100`)
+    ]);
+
+    if(userRes.status === 404){
+      body.innerHTML = `<div class="err">error: user '${esc(username)}' not found (404)</div>`;
+      goBtn.disabled = false;
+      return;
+    }
+    if(!userRes.ok){
+      let msg = 'request failed';
+      if(userRes.status === 403) msg = 'rate limit exceeded — try again later';
+      body.innerHTML = `<div class="err">error: ${esc(msg)} (${userRes.status})</div>`;
+      goBtn.disabled = false;
+      return;
+    }
+
+    const user = await userRes.json();
+    const repos = reposRes.ok ? await reposRes.json() : [];
+
+    // diffstat scaling
+    const maxVal = Math.max(user.followers, user.following, user.public_repos, 1);
+    const scale = v => Math.max(4, Math.round((v/maxVal)*100));
+
+    const topRepos = [...repos]
+      .filter(r => !r.fork)
+      .sort((a,b) => b.stargazers_count - a.stargazers_count)
+      .slice(0, 8);
+
+    let reposHtml = '';
+    if(topRepos.length === 0){
+      reposHtml = `<div class="empty-note">no public, non-fork repositories to show.</div>`;
+    } else {
+      reposHtml = `<div class="repo-list">` + topRepos.map(r => `
+        <div class="repo-row">
+          <span class="lang-dot" style="background:${langColor(r.language)}"></span>
+          <a class="repo-name" href="${r.html_url}" target="_blank" rel="noopener">${esc(r.name)}</a>
+          <span class="repo-desc">${esc(r.description || 'no description')}</span>
+          <span class="repo-star">★ ${fmtNum(r.stargazers_count)}</span>
+        </div>
+      `).join('') + `</div>`;
+    }
+
+    body.innerHTML = `
+      <div class="profile show">
+        <div class="p-head">
+          <img class="avatar" src="${user.avatar_url}" alt="${esc(user.login)} avatar">
+          <div>
+            <div class="p-idline"># ${esc(user.login)} — joined ${new Date(user.created_at).toLocaleDateString('en-US',{year:'numeric',month:'short'})}</div>
+            <span class="p-name">${esc(user.name || user.login)}</span><span class="p-login">@${esc(user.login)}</span>
+            ${user.bio ? `<div class="p-bio">${esc(user.bio)}</div>` : ''}
+            <div class="p-meta">
+              ${user.company ? `<span>🏢 <b>${esc(user.company)}</b></span>` : ''}
+              ${user.location ? `<span>📍 <b>${esc(user.location)}</b></span>` : ''}
+              ${user.blog ? `<span>🔗 <a href="${user.blog.startsWith('http') ? user.blog : 'https://'+user.blog}" target="_blank" rel="noopener">${esc(user.blog)}</a></span>` : ''}
+              <span>🕓 last updated ${timeAgo(user.updated_at)}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="diffstat">
+          <div class="diffstat-title">git diff --stat  (profile summary)</div>
+          <div class="ds-row">
+            <span class="ds-label">repos</span>
+            <span class="ds-num add">${user.public_repos}</span>
+            <span class="ds-bar"><span class="ds-fill add" style="width:${scale(user.public_repos)}%"></span></span>
+          </div>
+          <div class="ds-row">
+            <span class="ds-label">followers</span>
+            <span class="ds-num add">${user.followers}</span>
+            <span class="ds-bar"><span class="ds-fill add" style="width:${scale(user.followers)}%"></span></span>
+          </div>
+          <div class="ds-row">
+            <span class="ds-label">following</span>
+            <span class="ds-num rm">${user.following}</span>
+            <span class="ds-bar"><span class="ds-fill rm" style="width:${scale(user.following)}%"></span></span>
+          </div>
+          <div class="ds-row">
+            <span class="ds-label">gists</span>
+            <span class="ds-num add">${user.public_gists}</span>
+            <span class="ds-bar"><span class="ds-fill add" style="width:${scale(user.public_gists)}%"></span></span>
+          </div>
+        </div>
+
+        <div class="section-label">top repositories (by ★, excluding forks)</div>
+        ${reposHtml}
+      </div>
+    `;
+  } catch(e){
+    body.innerHTML = `<div class="err">error: network request failed — ${esc(e.message)}</div>`;
+  } finally {
+    goBtn.disabled = false;
+  }
+}
+
+goBtn.addEventListener('click', runSearch);
+input.addEventListener('keydown', (e) => {
+  if(e.key === 'Enter') runSearch();
+});
+</script>
+</body>
+</html>
