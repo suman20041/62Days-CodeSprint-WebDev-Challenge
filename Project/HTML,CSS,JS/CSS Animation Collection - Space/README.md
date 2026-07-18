@@ -57,3 +57,9 @@ _(If you’re on Windows, use `start index.html`.)_
 ### 📋 Copying Animation CSS to your clipbaord
 
 Click **Copy CSS** on any card. The button copies the CSS snippet for that animation (keyframes + class) so you can reuse it elsewhere.
+
+---
+
+### Contributing
+
+Contributions are welcome! You are free to improve the existing animations and even add more animations to the collection, as well as modify the site layout, etc.
