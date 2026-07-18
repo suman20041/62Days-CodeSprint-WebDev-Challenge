@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habit Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F7F3EA;
+    --ruled: #DFD5BF;
+    --ink: #2B2621;
+    --ink-soft: #726A5E;
+    --card: #FFFDF7;
+    --flame: #C1502E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(to bottom, transparent, transparent 39px, var(--ruled) 39px, var(--ruled) 40px);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+  .wrap{ max-width: 760px; margin: 0 auto; padding: 44px 24px 90px; }
+
+  header{ margin-bottom: 32px; }
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+  }
+  h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 36px;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .sub{ color: var(--ink-soft); font-size: 14px; margin: 0; }
+
+  .add-row{
+    display:flex;
+    gap: 8px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  #habitInput{
+    flex: 1;
+    min-width: 200px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+    border-radius: 4px;
+    outline: none;
+  }
+  #habitInput:focus{ border-color: var(--flame); }
+  #addBtn{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 12px 22px;
+    border: 1.5px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  #addBtn:hover{ background: var(--flame); border-color: var(--flame); }
+
+  #empty{
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--ink-soft);
+    text-align: center;
+    padding: 60px 20px;
+    border: 1.5px dashed var(--ruled);
+    border-radius: 8px;
+    background: var(--card);
+  }
+
+  .habit-card{
+    background: var(--card);
+    border: 1.5px solid var(--ink);
+    border-left: 5px solid var(--habit-color, var(--flame));
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin-bottom: 18px;
+  }
+  .habit-top{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .habit-name{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+    margin: 0;
+  }
+  .habit-actions{ display:flex; align-items:center; gap: 14px; }
+  .streak-badge{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--flame);
+    display:flex;
+    align-items:center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .del-btn{
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    padding: 4px 6px;
+  }
+  .del-btn:hover{ color: var(--flame); }
+
+  .week-row{
+    display:flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .day-toggle{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 6px;
+  }
+  .day-toggle .dlabel{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em;
+  }
+  .day-toggle button{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ruled);
+    background: var(--paper);
+    cursor: pointer;
+    font-size: 14px;
+    color: transparent;
+    transition: background 0.1s, border-color 0.1s;
+  }
+  .day-toggle button.done{
+    background: var(--habit-color, var(--flame));
+    border-color: var(--habit-color, var(--flame));
+    color: var(--card);
+  }
+  .day-toggle button.today{ border-color: var(--ink); border-width: 2px; }
+  .day-toggle button:hover{ border-color: var(--ink); }
+
+  .heatmap-label{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+    border-top: 1px solid var(--ruled);
+    padding-top: 14px;
+  }
+  .heatmap{ display:flex; gap: 3px; }
+  .heat-col{ display:flex; flex-direction:column; gap: 3px; }
+  .heat-cell{
+    width: 11px; height: 11px;
+    border-radius: 2px;
+    background: var(--ruled);
+  }
+
+  footer.credit{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 560px){
+    .day-toggle button{ width: 28px; height: 28px; }
+    h1{ font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Daily ledger</p>
+    <h1>Habit tracker</h1>
+    <p class="sub">Add a habit, check it off each day, and watch the streak build.</p>
+  </header>
+
+  <div class="add-row">
+    <input id="habitInput" type="text" placeholder="New habit, e.g. Read 20 minutes" />
+    <button id="addBtn">Add habit</button>
+  </div>
+
+  <div id="empty" style="display:none;">Nothing tracked yet. Add your first habit above.</div>
+  <div id="habitList"></div>
+
+  <footer class="credit">Progress saves in this browser.</footer>
+</div>
+
+<script>
+const COLORS = ['#C1502E', '#3B4C6B', '#5B7553', '#C08A28', '#6B3B54'];
+const STORE_KEY = 'habit_tracker_data_v1';
+const DAY_LABELS = ['S','M','T','W','T','F','S'];
+
+let habits = [];
+let memoryFallback = false;
+
+function loadHabits(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  }catch(e){
+    memoryFallback = true;
+    return [];
+  }
+}
+
+function saveHabits(){
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify(habits));
+  }catch(e){
+    memoryFallback = true;
+  }
+}
+
+function todayKey(d){
+  const dt = d || new Date();
+  return dt.getFullYear() + '-' + String(dt.getMonth()+1).padStart(2,'0') + '-' + String(dt.getDate()).padStart(2,'0');
+}
+
+function startOfWeek(d){
+  const dt = new Date(d);
+  const day = dt.getDay();
+  dt.setDate(dt.getDate() - day);
+  dt.setHours(0,0,0,0);
+  return dt;
+}
+
+function computeStreak(habit){
+  let streak = 0;
+  let cursor = new Date();
+  while(true){
+    const key = todayKey(cursor);
+    if(habit.log[key]){
+      streak++;
+      cursor.setDate(cursor.getDate() - 1);
+    }else{
+      if(key === todayKey(new Date())){
+        cursor.setDate(cursor.getDate() - 1);
+        continue;
+      }
+      break;
+    }
+  }
+  return streak;
+}
+
+function renderWeekRow(habit){
+  const wStart = startOfWeek(new Date());
+  const cells = [];
+  for(let i=0;i<7;i++){
+    const d = new Date(wStart);
+    d.setDate(d.getDate() + i);
+    const key = todayKey(d);
+    const isToday = key === todayKey(new Date());
+    const done = !!habit.log[key];
+    cells.push(`
+      <div class="day-toggle">
+        <span class="dlabel">${DAY_LABELS[i]}</span>
+        <button data-habit="${habit.id}" data-date="${key}" class="${done?'done':''} ${isToday?'today':''}">${done?'✓':''}</button>
+      </div>
+    `);
+  }
+  return `<div class="week-row">${cells.join('')}</div>`;
+}
+
+function renderHeatmap(habit){
+  const weeks = 12;
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const end = startOfWeek(today);
+  end.setDate(end.getDate() + 7);
+  const start = new Date(end);
+  start.setDate(start.getDate() - weeks*7);
+
+  const cols = [];
+  for(let w=0; w<weeks; w++){
+    const colCells = [];
+    for(let d=0; d<7; d++){
+      const dt = new Date(start);
+      dt.setDate(dt.getDate() + w*7 + d);
+      if(dt > today){
+        colCells.push(`<div class="heat-cell" style="background:transparent;"></div>`);
+        continue;
+      }
+      const key = todayKey(dt);
+      const done = !!habit.log[key];
+      const bg = done ? habit.color : 'var(--ruled)';
+      colCells.push(`<div class="heat-cell" style="background:${bg};" title="${key}"></div>`);
+    }
+    cols.push(`<div class="heat-col">${colCells.join('')}</div>`);
+  }
+  return `<div class="heatmap">${cols.join('')}</div>`;
+}
+
+function render(){
+  const list = document.getElementById('habitList');
+  const empty = document.getElementById('empty');
+  if(habits.length === 0){
+    empty.style.display = 'block';
+    list.innerHTML = '';
+    return;
+  }
+  empty.style.display = 'none';
+  list.innerHTML = habits.map(h => {
+    const streak = computeStreak(h);
+    return `
+      <div class="habit-card" style="--habit-color:${h.color};">
+        <div class="habit-top">
+          <p class="habit-name">${h.name}</p>
+          <div class="habit-actions">
+            <span class="streak-badge">🔥 ${streak} day${streak===1?'':'s'}</span>
+            <button class="del-btn" data-del="${h.id}">remove</button>
+          </div>
+        </div>
+        ${renderWeekRow(h)}
+        <p class="heatmap-label">Last 12 weeks</p>
+        ${renderHeatmap(h)}
+      </div>
+    `;
+  }).join('');
+
+  list.querySelectorAll('button[data-habit]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-habit');
+      const date = btn.getAttribute('data-date');
+      const habit = habits.find(h => h.id === id);
+      if(habit.log[date]) delete habit.log[date];
+      else habit.log[date] = true;
+      saveHabits();
+      render();
+    });
+  });
+  list.querySelectorAll('button[data-del]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-del');
+      habits = habits.filter(h => h.id !== id);
+      saveHabits();
+      render();
+    });
+  });
+}
+
+function addHabit(name){
+  const color = COLORS[habits.length % COLORS.length];
+  habits.push({
+    id: 'h_' + Date.now() + '_' + Math.floor(Math.random()*1000),
+    name: name,
+    color: color,
+    log: {}
+  });
+  saveHabits();
+  render();
+}
+
+document.getElementById('addBtn').addEventListener('click', () => {
+  const input = document.getElementById('habitInput');
+  const val = input.value.trim();
+  if(val){
+    addHabit(val);
+    input.value = '';
+  }
+});
+document.getElementById('habitInput').addEventListener('keydown', e => {
+  if(e.key === 'Enter'){
+    const val = e.target.value.trim();
+    if(val){
+      addHabit(val);
+      e.target.value = '';
+    }
+  }
+});
+
+habits = loadHabits();
+render();
+</script>
+</body>
+</html>
