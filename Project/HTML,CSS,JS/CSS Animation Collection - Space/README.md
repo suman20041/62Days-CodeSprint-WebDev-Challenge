@@ -5,6 +5,12 @@
   <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5"/>
   <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3"/>
 
+  ---
+
+  <img width="1702" height="912" alt="image" src="https://github.com/user-attachments/assets/3a45a1db-131d-4568-bc7c-ada1ca1f26ab" />
+  <img width="1702" height="912" alt="image" src="https://github.com/user-attachments/assets/830b704e-0fa2-4f35-909e-db29de757661" />
+  <img width="1702" height="678" alt="image" src="https://github.com/user-attachments/assets/d8b2a815-1741-470f-b08b-262015d0bb26" />
+
 </div>
 
 ### A single-page collection of space and cosmos-themed CSS animations. Each animation has its own card with:
