@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>The Recipe Index</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --paper: #C7AD79;
+    --paper-dark: #B49A63;
+    --card: #F4E9CC;
+    --card-edge: #E4D3A5;
+    --ink: #232C31;
+    --ink-soft: #4B5459;
+    --stamp: #A5382C;
+    --olive: #4F5C3B;
+    --gold: #A8791F;
+    --shadow: rgba(35,44,49,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 10%, rgba(255,255,255,0.06), transparent 40%),
+      repeating-linear-gradient(135deg, rgba(0,0,0,0.015) 0 2px, transparent 2px 6px),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Lora', serif;
+    min-height:100vh;
+    padding:32px 20px 60px;
+  }
+
+  .wrap{max-width:1080px;margin:0 auto;}
+
+  /* ---------- HEADER : drawer label ---------- */
+  header{
+    text-align:center;
+    margin-bottom:34px;
+  }
+  .drawer-label{
+    display:inline-block;
+    background:var(--ink);
+    color:var(--card);
+    padding:10px 28px;
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:3px;
+    font-size:11px;
+    border-radius:2px;
+    transform:rotate(-1deg);
+    box-shadow:0 4px 0 rgba(0,0,0,0.15);
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:'Special Elite', monospace;
+    font-size:clamp(32px,6vw,54px);
+    margin:0 0 8px;
+    letter-spacing:1px;
+    text-shadow:1px 1px 0 rgba(255,255,255,0.25);
+  }
+  header p{
+    font-style:italic;
+    color:var(--ink-soft);
+    margin:0;
+    font-size:15px;
+  }
+
+  /* ---------- SEARCH ---------- */
+  .search-panel{
+    background:var(--card);
+    border:1px solid var(--card-edge);
+    border-radius:4px;
+    padding:20px;
+    max-width:640px;
+    margin:0 auto 40px;
+    box-shadow:0 10px 24px var(--shadow), 0 1px 0 rgba(255,255,255,0.4) inset;
+    position:relative;
+  }
+  .search-panel::before{
+    content:'';
+    position:absolute;
+    top:-8px; left:50%;
+    transform:translateX(-50%);
+    width:60px; height:16px;
+    background:var(--gold);
+    opacity:0.85;
+    clip-path:polygon(0 0,100% 0,90% 100%,10% 100%);
+  }
+  .tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+  }
+  .tab-btn{
+    flex:1;
+    padding:9px 6px;
+    background:transparent;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    cursor:pointer;
+    border-radius:2px;
+    letter-spacing:1px;
+    transition:all .15s ease;
+  }
+  .tab-btn.active{
+    background:var(--ink);
+    color:var(--card);
+  }
+  .search-row{
+    display:flex;
+    gap:10px;
+  }
+  .search-row input{
+    flex:1;
+    padding:12px 14px;
+    border:1px solid var(--ink-soft);
+    background:#fff;
+    font-family:'Lora', serif;
+    font-size:15px;
+    border-radius:2px;
+    color:var(--ink);
+  }
+  .search-row input:focus{
+    outline:2px solid var(--stamp);
+    outline-offset:1px;
+  }
+  .search-row button{
+    background:var(--stamp);
+    color:#fff;
+    border:none;
+    padding:0 22px;
+    font-family:'Special Elite', monospace;
+    font-size:14px;
+    letter-spacing:1px;
+    border-radius:2px;
+    cursor:pointer;
+    transition:transform .1s ease;
+  }
+  .search-row button:hover{transform:translateY(-1px);}
+  .search-row button:active{transform:translateY(1px);}
+  .search-row button:disabled{opacity:0.5;cursor:default;transform:none;}
+  .hint{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:10px;
+    text-align:center;
+  }
+
+  /* ---------- STATUS ---------- */
+  .status{
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+    padding:40px 0;
+    letter-spacing:0.5px;
+  }
+  .status.error{color:var(--stamp);}
+
+  /* ---------- GRID / INDEX CARDS ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:26px;
+    padding:10px 6px 0;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--card-edge);
+    border-radius:2px;
+    box-shadow:0 6px 14px var(--shadow);
+    cursor:pointer;
+    position:relative;
+    padding:14px 14px 16px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:nth-child(3n+1){transform:rotate(-0.6deg);}
+  .card:nth-child(3n+2){transform:rotate(0.5deg);}
+  .card:nth-child(3n+3){transform:rotate(-0.3deg);}
+  .card:hover{
+    transform:translateY(-4px) rotate(0deg) scale(1.02);
+    box-shadow:0 14px 26px var(--shadow);
+    z-index:2;
+  }
+  .punch{
+    position:absolute;
+    top:10px; left:10px;
+    width:12px; height:12px;
+    border-radius:50%;
+    background:var(--paper);
+    box-shadow:inset 0 1px 3px rgba(0,0,0,0.4);
+  }
+  .card img{
+    width:100%;
+    height:130px;
+    object-fit:cover;
+    border-radius:2px;
+    filter:sepia(0.12) contrast(1.02);
+    margin-bottom:10px;
+    display:block;
+  }
+  .card h3{
+    font-family:'Special Elite', monospace;
+    font-size:15px;
+    margin:0 0 8px;
+    line-height:1.3;
+    color:var(--ink);
+  }
+  .tear{
+    border-top:1px dashed var(--ink-soft);
+    margin:8px 0;
+    opacity:0.5;
+  }
+  .stamp-badge{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    color:var(--olive);
+    border:1px solid var(--olive);
+    padding:2px 7px;
+    border-radius:20px;
+    text-transform:uppercase;
+  }
+
+  /* ---------- MODAL ---------- */
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(20,24,26,0.55);
+    display:flex; align-items:flex-start; justify-content:center;
+    padding:40px 16px;
+    overflow-y:auto;
+    z-index:50;
+  }
+  .modal{
+    background:var(--card);
+    max-width:680px;
+    width:100%;
+    border-radius:3px;
+    box-shadow:0 30px 60px rgba(0,0,0,0.5);
+    position:relative;
+    padding:34px 30px 30px;
+    animation:pop .18s ease;
+  }
+  @keyframes pop{ from{transform:scale(0.96); opacity:0;} to{transform:scale(1); opacity:1;} }
+  .close-btn{
+    position:absolute;
+    top:14px; right:16px;
+    background:none;
+    border:none;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    letter-spacing:1px;
+  }
+  .close-btn:hover{color:var(--stamp);}
+  .modal-stamp{
+    position:absolute;
+    top:22px; right:70px;
+    border:2px solid var(--stamp);
+    color:var(--stamp);
+    font-family:'Special Elite', monospace;
+    font-size:11px;
+    padding:4px 10px;
+    border-radius:4px;
+    transform:rotate(8deg);
+    opacity:0.85;
+    letter-spacing:1px;
+  }
+  .modal img{
+    width:100%;
+    max-height:260px;
+    object-fit:cover;
+    border-radius:3px;
+    filter:sepia(0.1);
+    margin-bottom:18px;
+  }
+  .modal h2{
+    font-family:'Special Elite', monospace;
+    font-size:26px;
+    margin:0 0 6px;
+    padding-right:60px;
+  }
+  .modal .meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-bottom:20px;
+  }
+  .modal .meta span{margin-right:14px;}
+  .section-title{
+    font-family:'Special Elite', monospace;
+    font-size:14px;
+    color:var(--stamp);
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin:22px 0 10px;
+    border-bottom:1px solid var(--card-edge);
+    padding-bottom:6px;
+  }
+  .ingredients{
+    list-style:none;
+    padding:0; margin:0;
+    columns:2;
+    column-gap:24px;
+  }
+  .ingredients li{
+    font-size:14px;
+    margin-bottom:8px;
+    break-inside:avoid;
+    display:flex;
+    gap:8px;
+  }
+  .ingredients li::before{
+    content:'☐';
+    color:var(--olive);
+  }
+  .ingredients b{font-family:'IBM Plex Mono', monospace; font-weight:600;}
+  .instructions{
+    font-size:15px;
+    line-height:1.75;
+    color:var(--ink);
+    white-space:pre-line;
+  }
+  .modal-footer{
+    margin-top:22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+  }
+  .modal-footer a{color:var(--olive);}
+
+  @media (max-width:480px){
+    .ingredients{columns:1;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="drawer-label">DRAWER · MEALS &amp; DISHES</div>
+    <h1>The Recipe Index</h1>
+    <p>Flip through the box. Find something worth cooking tonight.</p>
+  </header>
+
+  <div class="search-panel">
+    <div class="tabs">
+      <button class="tab-btn active" data-mode="name">BY DISH NAME</button>
+      <button class="tab-btn" data-mode="ingredient">BY INGREDIENT</button>
+    </div>
+    <div class="search-row">
+      <input id="query" type="text" placeholder="e.g. arrabbiata" autocomplete="off" />
+      <button id="go">SEARCH</button>
+    </div>
+    <div class="hint" id="hint">Card catalog runs on TheMealDB — try "chicken", "pasta", or an ingredient like "salmon".</div>
+  </div>
+
+  <div id="results"></div>
+</div>
+
+<div id="modal-root"></div>
+
+<script>
+  const API = 'https://www.themealdb.com/api/json/v1/1';
+  let mode = 'name';
+
+  const tabs = document.querySelectorAll('.tab-btn');
+  const input = document.getElementById('query');
+  const goBtn = document.getElementById('go');
+  const resultsEl = document.getElementById('results');
+  const hintEl = document.getElementById('hint');
+  const modalRoot = document.getElementById('modal-root');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      mode = btn.dataset.mode;
+      input.placeholder = mode === 'name' ? 'e.g. arrabbiata' : 'e.g. chicken, salmon, lentils';
+      hintEl.textContent = mode === 'name'
+        ? 'Searching by dish name — try "pie", "curry", or "tacos".'
+        : 'Searching by main ingredient — try "beef", "egg", or "potato".';
+    });
+  });
+
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
+  goBtn.addEventListener('click', runSearch);
+
+  function setStatus(msg, isError) {
+    resultsEl.innerHTML = '<div class="status' + (isError ? ' error' : '') + '">' + msg + '</div>';
+  }
+
+  async function runSearch() {
+    const q = input.value.trim();
+    if (!q) { setStatus('Type something to search the drawer for.'); return; }
+    goBtn.disabled = true;
+    setStatus('Sliding the drawer open…');
+    try {
+      if (mode === 'name') {
+        const res = await fetch(API + '/search.php?s=' + encodeURIComponent(q));
+        const data = await res.json();
+        renderGrid(data.meals);
+      } else {
+        const res = await fetch(API + '/filter.php?i=' + encodeURIComponent(q));
+        const data = await res.json();
+        renderGrid(data.meals);
+      }
+    } catch (err) {
+      setStatus('The drawer stuck. Check your connection and try again.', true);
+    } finally {
+      goBtn.disabled = false;
+    }
+  }
+
+  function renderGrid(meals) {
+    if (!meals) {
+      setStatus('No cards in the drawer matched "' + input.value.trim() + '". Try another word.');
+      return;
+    }
+    resultsEl.innerHTML = '<div class="grid" id="grid"></div>';
+    const grid = document.getElementById('grid');
+    meals.slice(0, 24).forEach(meal => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML =
+        '<div class="punch"></div>' +
+        '<img src="' + meal.strMealThumb + '/preview" alt="' + meal.strMeal + '" loading="lazy" />' +
+        '<h3>' + meal.strMeal + '</h3>' +
+        '<div class="tear"></div>' +
+        '<span class="stamp-badge">view card →</span>';
+      card.addEventListener('click', () => openMeal(meal.idMeal));
+      grid.appendChild(card);
+    });
+  }
+
+  async function openMeal(id) {
+    modalRoot.innerHTML = '<div class="overlay" id="overlay"><div class="status">Pulling the full card…</div></div>';
+    try {
+      const res = await fetch(API + '/lookup.php?i=' + id);
+      const data = await res.json();
+      const meal = data.meals[0];
+      renderModal(meal);
+    } catch (err) {
+      modalRoot.innerHTML = '';
+    }
+  }
+
+  function renderModal(meal) {
+    const ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+      const ing = meal['strIngredient' + i];
+      const measure = meal['strMeasure' + i];
+      if (ing && ing.trim()) {
+        ingredients.push('<li><b>' + (measure && measure.trim() ? measure.trim() : '') + '</b>&nbsp;' + ing.trim() + '</li>');
+      }
+    }
+    const tags = meal.strTags ? meal.strTags.split(',').filter(Boolean) : [];
+
+    modalRoot.innerHTML =
+      '<div class="overlay" id="overlay">' +
+        '<div class="modal">' +
+          '<button class="close-btn" id="close-modal">CLOSE ✕</button>' +
+          '<div class="modal-stamp">' + (meal.strCategory || 'DISH') + '</div>' +
+          '<img src="' + meal.strMealThumb + '" alt="' + meal.strMeal + '" />' +
+          '<h2>' + meal.strMeal + '</h2>' +
+          '<div class="meta">' +
+            '<span>REGION: ' + (meal.strArea || '—') + '</span>' +
+            (tags.length ? '<span>TAGS: ' + tags.join(', ') + '</span>' : '') +
+          '</div>' +
+          '<div class="section-title">Ingredients</div>' +
+          '<ul class="ingredients">' + ingredients.join('') + '</ul>' +
+          '<div class="section-title">Instructions</div>' +
+          '<div class="instructions">' + meal.strInstructions + '</div>' +
+          '<div class="modal-footer">' +
+            (meal.strSource ? '<a href="' + meal.strSource + '" target="_blank" rel="noopener">Original source</a> · ' : '') +
+            (meal.strYoutube ? '<a href="' + meal.strYoutube + '" target="_blank" rel="noopener">Watch on YouTube</a>' : '') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('close-modal').addEventListener('click', closeModal);
+    document.getElementById('overlay').addEventListener('click', e => {
+      if (e.target.id === 'overlay') closeModal();
+    });
+  }
+
+  function closeModal() { modalRoot.innerHTML = ''; }
+
+  // initial demo search
+  input.value = 'chicken';
+  runSearch();
+</script>
+</body>
+</html>
