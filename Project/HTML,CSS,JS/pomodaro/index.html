@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pomodoro Timer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EFEDE4;
+    --paper-card: #E6E2D5;
+    --ink: #1C2029;
+    --ink-soft: #5B5D5E;
+    --line: #CFCABB;
+    --tomato: #C1440E;
+    --tomato-dim: #E7C3AE;
+    --sage: #52745F;
+    --sage-dim: #C9D6C4;
+    --indigo: #445A7C;
+    --indigo-dim: #C6CFDD;
+    --focus: var(--tomato);
+    --focus-dim: var(--tomato-dim);
+  }
+  *{ box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body{
+    min-height: 100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 40px 16px;
+  }
+  .app{
+    width: 100%;
+    max-width: 480px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom: 6px;
+  }
+  h1{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 24px 0;
+    letter-spacing: -0.01em;
+  }
+  .tabs{
+    display:flex;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    background: var(--paper-card);
+  }
+  .tab{
+    flex:1;
+    border:none;
+    background: transparent;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    padding: 10px 4px;
+    cursor:pointer;
+    border-right: 1px solid var(--line);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .tab:last-child{ border-right:none; }
+  .tab.active{
+    color: #fff;
+    background: var(--focus);
+  }
+  .tab:focus-visible{ outline: 2px solid var(--ink); outline-offset: -2px; }
+
+  .dial-wrap{
+    position:relative;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 28px auto;
+  }
+  .dial-wrap svg{ width:100%; height:auto; display:block; }
+  .tick{ stroke: var(--line); stroke-width:2; transition: stroke 0.4s ease, opacity 0.4s ease; }
+  .tick.major{ stroke-width:3; }
+  .tick.passed{ stroke: var(--focus-dim); }
+  .ring-track{ fill:none; stroke: var(--paper-card); stroke-width: 10; }
+  .ring-progress{
+    fill:none;
+    stroke: var(--focus);
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform-origin: 50% 50%;
+    transform: rotate(-90deg);
+    transition: stroke-dashoffset 1s linear, stroke 0.4s ease;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ring-progress{ transition: none; }
+    .tick{ transition: none; }
+  }
+  .dial-center{
+    position:absolute;
+    top:50%; left:50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+    pointer-events:none;
+  }
+  .time{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 52px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height:1;
+  }
+  .state-label{
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .controls{
+    display:flex;
+    gap: 10px;
+    justify-content:center;
+    margin-bottom: 24px;
+  }
+  button.ctl{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--paper-card);
+    color: var(--ink);
+    padding: 12px 20px;
+    cursor:pointer;
+    transition: background 0.15s ease, transform 0.05s ease, border-color 0.15s ease;
+  }
+  button.ctl:hover{ border-color: var(--ink-soft); }
+  button.ctl:active{ transform: scale(0.97); }
+  button.ctl:focus-visible{ outline: 2px solid var(--ink); outline-offset: 2px; }
+  button.primary{
+    background: var(--focus);
+    border-color: var(--focus);
+    color: #fff;
+    min-width: 120px;
+  }
+  button.primary:hover{ background: var(--ink); border-color: var(--ink); }
+
+  .progress-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 20px;
+    margin-bottom: 28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .dots{ display:flex; gap:8px; }
+  .dot{
+    width: 10px; height:10px;
+    border-radius:50%;
+    border: 1.5px solid var(--ink-soft);
+    background: transparent;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .dot.filled{ background: var(--focus); border-color: var(--focus); }
+
+  details.settings{
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+  summary.settings-toggle{
+    cursor:pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    list-style:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  summary.settings-toggle::-webkit-details-marker{ display:none; }
+  summary.settings-toggle::after{
+    content: '+';
+    font-family:'IBM Plex Mono', monospace;
+    font-size:16px;
+  }
+  details[open] summary.settings-toggle::after{ content: '\2212'; }
+  .settings-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+    margin-top: 18px;
+  }
+  .field{ display:flex; flex-direction:column; gap:6px; }
+  .field label{
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .field input[type=number]{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    width: 100%;
+  }
+  .field input[type=number]:focus-visible{ outline: 2px solid var(--ink); outline-offset: 1px; }
+  .toggle-row{
+    grid-column: 1 / -1;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top: 4px;
+  }
+  .toggle-row span{ font-size: 13px; }
+  .switch{
+    position:relative;
+    width: 38px; height: 22px;
+    border-radius: 12px;
+    background: var(--line);
+    border: none;
+    cursor:pointer;
+    transition: background 0.2s ease;
+  }
+  .switch::after{
+    content:'';
+    position:absolute;
+    top:2px; left:2px;
+    width:18px; height:18px;
+    border-radius:50%;
+    background:#fff;
+    transition: transform 0.2s ease;
+  }
+  .switch.on{ background: var(--focus); }
+  .switch.on::after{ transform: translateX(16px); }
+  .apply-row{
+    grid-column: 1/-1;
+    margin-top: 6px;
+  }
+  .note{
+    margin-top: 14px;
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height:1.5;
+  }
+</style>
+</head>
+<body>
+<main class="app">
+  <div class="eyebrow">
+    <span>Pomodoro Timer</span>
+    <span id="totalCount">0 completed</span>
+  </div>
+  <h1>Work in focused stretches</h1>
+
+  <div class="tabs" role="tablist" aria-label="Session type">
+    <button class="tab active" data-mode="work" role="tab" aria-selected="true">Focus</button>
+    <button class="tab" data-mode="short" role="tab" aria-selected="false">Short break</button>
+    <button class="tab" data-mode="long" role="tab" aria-selected="false">Long break</button>
+  </div>
+
+  <div class="dial-wrap">
+    <svg viewBox="0 0 320 320">
+      <g id="ticks"></g>
+      <circle class="ring-track" cx="160" cy="160" r="120"></circle>
+      <circle class="ring-progress" id="ringProgress" cx="160" cy="160" r="120"></circle>
+    </svg>
+    <div class="dial-center">
+      <div class="time" id="timeDisplay">25:00</div>
+      <div class="state-label" id="stateLabel">Ready to focus</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctl" id="resetBtn">Reset</button>
+    <button class="ctl primary" id="startPauseBtn">Start</button>
+    <button class="ctl" id="skipBtn">Skip</button>
+  </div>
+
+  <div class="progress-row">
+    <span>Cycle</span>
+    <div class="dots" id="dots"></div>
+    <span id="cycleLabel">0 / 4</span>
+  </div>
+
+  <details class="settings">
+    <summary class="settings-toggle">Customize durations</summary>
+    <div class="settings-grid">
+      <div class="field">
+        <label for="workInput">Focus (min)</label>
+        <input type="number" id="workInput" min="1" max="120" value="25">
+      </div>
+      <div class="field">
+        <label for="shortInput">Short break (min)</label>
+        <input type="number" id="shortInput" min="1" max="60" value="5">
+      </div>
+      <div class="field">
+        <label for="longInput">Long break (min)</label>
+        <input type="number" id="longInput" min="1" max="60" value="15">
+      </div>
+      <div class="field">
+        <label for="intervalInput">Sessions before long break</label>
+        <input type="number" id="intervalInput" min="2" max="8" value="4">
+      </div>
+      <div class="toggle-row">
+        <span>Auto-start next session</span>
+        <button class="switch" id="autoStartToggle" aria-pressed="false"></button>
+      </div>
+      <div class="toggle-row">
+        <span>Sound on session end</span>
+        <button class="switch on" id="soundToggle" aria-pressed="true"></button>
+      </div>
+      <div class="apply-row">
+        <button class="ctl" id="applyBtn" style="width:100%;">Apply and reset timer</button>
+      </div>
+    </div>
+    <p class="note">Notifications need your browser's permission, requested the first time you press Start. Sound plays even if notifications are blocked.</p>
+  </details>
+</main>
+
+<script>
+(function(){
+  var RADIUS = 120, CIRC = 2 * Math.PI * RADIUS;
+
+  var state = {
+    mode: 'work',
+    durations: { work: 25, short: 5, long: 15 },
+    longBreakInterval: 4,
+    autoStart: false,
+    soundOn: true,
+    remaining: 25 * 60,
+    running: false,
+    intervalId: null,
+    cyclePos: 0,
+    totalCompleted: 0
+  };
+
+  var modeColors = {
+    work:  { main: getVar('--tomato'), dim: getVar('--tomato-dim') },
+    short: { main: getVar('--sage'),   dim: getVar('--sage-dim') },
+    long:  { main: getVar('--indigo'), dim: getVar('--indigo-dim') }
+  };
+
+  var modeLabels = {
+    work:  { tab: 'Ready to focus', running: 'Focusing', done: 'Focus complete' },
+    short: { tab: 'Ready for a short break', running: 'Short break', done: 'Break complete' },
+    long:  { tab: 'Ready for a long break', running: 'Long break', done: 'Break complete' }
+  };
+
+  var timeDisplay = document.getElementById('timeDisplay');
+  var stateLabel = document.getElementById('stateLabel');
+  var ringProgress = document.getElementById('ringProgress');
+  var startPauseBtn = document.getElementById('startPauseBtn');
+  var resetBtn = document.getElementById('resetBtn');
+  var skipBtn = document.getElementById('skipBtn');
+  var tabs = document.querySelectorAll('.tab');
+  var dotsWrap = document.getElementById('dots');
+  var cycleLabel = document.getElementById('cycleLabel');
+  var totalCount = document.getElementById('totalCount');
+  var ticksGroup = document.getElementById('ticks');
+
+  var workInput = document.getElementById('workInput');
+  var shortInput = document.getElementById('shortInput');
+  var longInput = document.getElementById('longInput');
+  var intervalInput = document.getElementById('intervalInput');
+  var autoStartToggle = document.getElementById('autoStartToggle');
+  var soundToggle = document.getElementById('soundToggle');
+  var applyBtn = document.getElementById('applyBtn');
+
+  function getVar(name){
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  function buildTicks(){
+    ticksGroup.innerHTML = '';
+    var cx = 160, cy = 160, outerR = 132, innerRMinor = 124, innerRMajor = 120;
+    for (var i = 0; i < 60; i++){
+      var angle = (i / 60) * 2 * Math.PI - Math.PI / 2;
+      var major = i % 5 === 0;
+      var r1 = outerR;
+      var r2 = major ? innerRMajor : innerRMinor;
+      var x1 = cx + r1 * Math.cos(angle);
+      var y1 = cy + r1 * Math.sin(angle);
+      var x2 = cx + r2 * Math.cos(angle);
+      var y2 = cy + r2 * Math.sin(angle);
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+      line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+      line.setAttribute('class', 'tick' + (major ? ' major' : ''));
+      line.dataset.index = i;
+      ticksGroup.appendChild(line);
+    }
+  }
+  buildTicks();
+
+  ringProgress.style.strokeDasharray = CIRC;
+  ringProgress.style.strokeDashoffset = 0;
+
+  function totalSecondsFor(mode){
+    return state.durations[mode] * 60;
+  }
+
+  function formatTime(sec){
+    var m = Math.floor(sec / 60);
+    var s = sec % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  function render(){
+    timeDisplay.textContent = formatTime(state.remaining);
+    var total = totalSecondsFor(state.mode);
+    var elapsedFrac = 1 - (state.remaining / total);
+    var offset = CIRC * (1 - elapsedFrac);
+    ringProgress.style.strokeDashoffset = offset;
+    var colors = modeColors[state.mode];
+    ringProgress.style.stroke = colors.main;
+
+    var passedCount = Math.floor(elapsedFrac * 60);
+    var ticks = ticksGroup.querySelectorAll('.tick');
+    ticks.forEach(function(t){
+      var idx = parseInt(t.dataset.index, 10);
+      if (idx < passedCount){
+        t.classList.add('passed');
+        t.style.stroke = colors.dim;
+      } else {
+        t.classList.remove('passed');
+        t.style.stroke = '';
+      }
+    });
+
+    var labels = modeLabels[state.mode];
+    stateLabel.textContent = state.running ? labels.running : labels.tab;
+
+    tabs.forEach(function(tab){
+      var isActive = tab.dataset.mode === state.mode;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      tab.style.background = isActive ? colors.main : '';
+    });
+
+    startPauseBtn.textContent = state.running ? 'Pause' : 'Start';
+    startPauseBtn.style.background = colors.main;
+    startPauseBtn.style.borderColor = colors.main;
+
+    var interval = state.longBreakInterval;
+    dotsWrap.innerHTML = '';
+    for (var i = 0; i < interval; i++){
+      var dot = document.createElement('div');
+      dot.className = 'dot' + (i < state.cyclePos ? ' filled' : '');
+      dotsWrap.appendChild(dot);
+    }
+    cycleLabel.textContent = state.cyclePos + ' / ' + interval;
+    totalCount.textContent = state.totalCompleted + ' completed';
+
+    document.title = (state.running ? formatTime(state.remaining) + ' \u2014 ' : '') + 'Pomodoro Timer';
+  }
+
+  function tick(){
+    if (state.remaining > 0){
+      state.remaining -= 1;
+      render();
+    }
+    if (state.remaining <= 0){
+      sessionComplete();
+    }
+  }
+
+  function startTimer(){
+    if (state.running) return;
+    requestNotificationPermission();
+    state.running = true;
+    state.intervalId = setInterval(tick, 1000);
+    render();
+  }
+
+  function pauseTimer(){
+    state.running = false;
+    clearInterval(state.intervalId);
+    render();
+  }
+
+  function resetTimer(){
+    pauseTimer();
+    state.remaining = totalSecondsFor(state.mode);
+    render();
+  }
+
+  function switchMode(newMode){
+    pauseTimer();
+    state.mode = newMode;
+    state.remaining = totalSecondsFor(newMode);
+    render();
+  }
+
+  function sessionComplete(){
+    pauseTimer();
+    var finishedMode = state.mode;
+
+    if (finishedMode === 'work'){
+      state.totalCompleted += 1;
+      state.cyclePos += 1;
+      if (state.cyclePos >= state.longBreakInterval){
+        state.mode = 'long';
+        state.cyclePos = 0;
+      } else {
+        state.mode = 'short';
+      }
+    } else {
+      state.mode = 'work';
+    }
+    state.remaining = totalSecondsFor(state.mode);
+
+    notify(finishedMode);
+    render();
+
+    if (state.autoStart){
+      startTimer();
+    }
+  }
+
+  function notify(finishedMode){
+    var labels = modeLabels[finishedMode];
+    var nextLabel = modeLabels[state.mode].tab;
+
+    if (state.soundOn){
+      playChime();
+    }
+    if ('Notification' in window && Notification.permission === 'granted'){
+      try {
+        new Notification(labels.done, { body: 'Next up: ' + nextLabel.replace('Ready to ', '').replace('Ready for a ', '') });
+      } catch (e) {}
+    }
+  }
+
+  function requestNotificationPermission(){
+    if ('Notification' in window && Notification.permission === 'default'){
+      Notification.requestPermission();
+    }
+  }
+
+  var audioCtx = null;
+  function playChime(){
+    try {
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      var now = audioCtx.currentTime;
+      var freqs = [660, 880, 1046];
+      freqs.forEach(function(freq, i){
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        var start = now + i * 0.16;
+        gain.gain.setValueAtTime(0, start);
+        gain.gain.linearRampToValueAtTime(0.18, start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.3);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(start);
+        osc.stop(start + 0.32);
+      });
+    } catch (e) {}
+  }
+
+  startPauseBtn.addEventListener('click', function(){
+    if (state.running) pauseTimer(); else startTimer();
+  });
+  resetBtn.addEventListener('click', resetTimer);
+  skipBtn.addEventListener('click', function(){
+    state.remaining = 0;
+    sessionComplete();
+  });
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      switchMode(tab.dataset.mode);
+    });
+  });
+
+  autoStartToggle.addEventListener('click', function(){
+    state.autoStart = !state.autoStart;
+    autoStartToggle.classList.toggle('on', state.autoStart);
+    autoStartToggle.setAttribute('aria-pressed', state.autoStart ? 'true' : 'false');
+  });
+  soundToggle.addEventListener('click', function(){
+    state.soundOn = !state.soundOn;
+    soundToggle.classList.toggle('on', state.soundOn);
+    soundToggle.setAttribute('aria-pressed', state.soundOn ? 'true' : 'false');
+  });
+
+  applyBtn.addEventListener('click', function(){
+    var w = clampInt(workInput.value, 1, 120, state.durations.work);
+    var s = clampInt(shortInput.value, 1, 60, state.durations.short);
+    var l = clampInt(longInput.value, 1, 60, state.durations.long);
+    var iv = clampInt(intervalInput.value, 2, 8, state.longBreakInterval);
+    state.durations.work = w;
+    state.durations.short = s;
+    state.durations.long = l;
+    state.longBreakInterval = iv;
+    workInput.value = w; shortInput.value = s; longInput.value = l; intervalInput.value = iv;
+    resetTimer();
+  });
+
+  function clampInt(val, min, max, fallback){
+    var n = parseInt(val, 10);
+    if (isNaN(n)) return fallback;
+    return Math.max(min, Math.min(max, n));
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
