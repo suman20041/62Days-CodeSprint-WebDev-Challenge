@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Audio Visual Synth + MIDI Keyboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <h1>Waveform Lab</h1>
+          <p>Web Audio Visual Synth + MIDI</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button type="button" id="btnAudio" class="btn primary">Enable Audio</button>
+        <span id="midiStatus" class="pill">MIDI: checking…</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel controls" aria-label="Synth controls">
+        <h2>Oscillator</h2>
+        <label>Wave
+          <select id="waveType">
+            <option value="sine">Sine</option>
+            <option value="square">Square</option>
+            <option value="sawtooth" selected>Sawtooth</option>
+            <option value="triangle">Triangle</option>
+          </select>
+        </label>
+        <label>Detune (cents)
+          <input type="range" id="detune" min="-50" max="50" value="0" />
+          <output id="detuneOut">0</output>
+        </label>
+
+        <h2>ADSR</h2>
+        <div class="grid-2">
+          <label>Attack <input type="range" id="attack" min="0.005" max="2" step="0.005" value="0.02" /><output id="attackOut">0.02s</output></label>
+          <label>Decay <input type="range" id="decay" min="0.01" max="2" step="0.01" value="0.2" /><output id="decayOut">0.20s</output></label>
+          <label>Sustain <input type="range" id="sustain" min="0" max="1" step="0.01" value="0.65" /><output id="sustainOut">0.65</output></label>
+          <label>Release <input type="range" id="release" min="0.01" max="3" step="0.01" value="0.35" /><output id="releaseOut">0.35s</output></label>
+        </div>
+
+        <h2>Filter</h2>
+        <label>Type
+          <select id="filterType">
+            <option value="lowpass" selected>Lowpass</option>
+            <option value="highpass">Highpass</option>
+            <option value="bandpass">Bandpass</option>
+          </select>
+        </label>
+        <label>Cutoff
+          <input type="range" id="cutoff" min="80" max="12000" value="3200" />
+          <output id="cutoffOut">3200 Hz</output>
+        </label>
+        <label>Resonance (Q)
+          <input type="range" id="filterQ" min="0.1" max="18" step="0.1" value="1.2" />
+          <output id="filterQOut">1.2</output>
+        </label>
+
+        <h2>Master</h2>
+        <label>Volume
+          <input type="range" id="volume" min="0" max="1" step="0.01" value="0.35" />
+          <output id="volumeOut">35%</output>
+        </label>
+
+        <h2>Patches</h2>
+        <div class="row">
+          <input type="text" id="patchName" placeholder="Patch name" maxlength="32" />
+          <button type="button" id="btnSave" class="btn">Save</button>
+          <button type="button" id="btnLoad" class="btn">Load</button>
+          <button type="button" id="btnDelete" class="btn ghost">Delete</button>
+        </div>
+        <select id="patchList" size="4" aria-label="Saved patches"></select>
+      </section>
+
+      <section class="stage" aria-label="Visualizer and keyboard">
+        <canvas id="viz" width="900" height="160" aria-label="Audio visualizer"></canvas>
+
+        <div class="piano" id="piano" role="group" aria-label="On-screen piano"></div>
+        <p class="hint">Keys: <kbd>A</kbd>–<kbd>;</kbd> white · <kbd>W</kbd><kbd>E</kbd><kbd>T</kbd><kbd>Y</kbd><kbd>U</kbd><kbd>O</kbd><kbd>P</kbd> black · or click · or MIDI</p>
+
+        <div class="seq-panel">
+          <div class="seq-head">
+            <h2>Sequencer</h2>
+            <div class="row">
+              <label>Tempo <input type="range" id="tempo" min="60" max="180" value="120" /><output id="tempoOut">120 BPM</output></label>
+              <button type="button" id="btnPlaySeq" class="btn primary">Play</button>
+              <button type="button" id="btnClearSeq" class="btn ghost">Clear</button>
+            </div>
+          </div>
+          <div class="seq-grid" id="seqGrid" role="grid" aria-label="16-step sequencer"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
