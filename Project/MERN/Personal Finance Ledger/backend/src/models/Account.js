@@ -1,0 +1,1 @@
+import mongoose from 'mongoose'; export default mongoose.model('Account', new mongoose.Schema({user:{type:mongoose.Schema.Types.ObjectId,ref:'User'}, name:String, type:{type:String,default:'asset'}, balance:{type:Number,default:0}},{timestamps:true}));

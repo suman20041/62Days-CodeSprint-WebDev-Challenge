@@ -1,0 +1,1 @@
+import mongoose from 'mongoose'; export default mongoose.model('Bill', new mongoose.Schema({user:{type:mongoose.Schema.Types.ObjectId,ref:'User'}, name:String, amount:Number, everyDays:{type:Number,default:30}, nextDue:Date, account:{type:mongoose.Schema.Types.ObjectId,ref:'Account'}},{timestamps:true}));
